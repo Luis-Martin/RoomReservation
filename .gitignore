@@ -1,0 +1,18 @@
+# Ignorar archivos de compilación de Java
+*.class
+
+# Ignorar archivos generados por Ant
+build/
+dist/
+
+# Ignorar archivos de configuración del IDE (NetBeans)
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# Ignorar archivos de logs
+*.log
+
