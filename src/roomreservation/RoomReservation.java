@@ -4,6 +4,8 @@
  */
 package roomreservation;
 
+import roomreservation.views.LoginJFrame;
+
 /**
  *
  * @author luism
@@ -15,6 +17,7 @@ public class RoomReservation {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        new LoginJFrame();
     }
     
 }
