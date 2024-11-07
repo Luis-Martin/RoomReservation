@@ -16,3 +16,6 @@ nbdist/
 # Ignorar archivos de logs
 *.log
 
+
+# Ignorar variables de entorno
+.env
