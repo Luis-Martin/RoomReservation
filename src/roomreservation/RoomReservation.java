@@ -4,6 +4,7 @@
  */
 package roomreservation;
 
+import roomreservation.model.DBConnection;
 import roomreservation.views.LoginJFrame;
 
 /**
@@ -16,6 +17,8 @@ public class RoomReservation {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        DBConnection dbc = new DBConnection();
+        dbc.conect();
         // TODO code application logic here
         new LoginJFrame();
     }
