@@ -26,17 +26,144 @@ public class UserManagment extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel2 = new javax.swing.JPanel();
+        btninicio = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        btnreserva = new javax.swing.JButton();
+        btnmreservas = new javax.swing.JButton();
+        btnadreservas = new javax.swing.JButton();
+        btngestusuarios = new javax.swing.JButton();
+        btnmcuenta = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblgestusuarios = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel2.setBackground(new java.awt.Color(0, 153, 51));
+
+        btninicio.setBackground(new java.awt.Color(0, 153, 51));
+        btninicio.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        btninicio.setForeground(new java.awt.Color(255, 255, 255));
+        btninicio.setText("Inicio");
+        btninicio.setBorder(null);
+        btninicio.setContentAreaFilled(false);
+
+        jLabel2.setFont(new java.awt.Font("Vensim Serif", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("ROOMC");
+
+        btnreserva.setBackground(new java.awt.Color(0, 153, 51));
+        btnreserva.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        btnreserva.setForeground(new java.awt.Color(255, 255, 255));
+        btnreserva.setText("Reservar");
+        btnreserva.setBorder(null);
+        btnreserva.setContentAreaFilled(false);
+
+        btnmreservas.setBackground(new java.awt.Color(0, 153, 51));
+        btnmreservas.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        btnmreservas.setForeground(new java.awt.Color(255, 255, 255));
+        btnmreservas.setText("Mis reservas");
+        btnmreservas.setBorder(null);
+        btnmreservas.setContentAreaFilled(false);
+
+        btnadreservas.setBackground(new java.awt.Color(0, 153, 51));
+        btnadreservas.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        btnadreservas.setForeground(new java.awt.Color(255, 255, 255));
+        btnadreservas.setText("Administrar reservas");
+        btnadreservas.setBorder(null);
+        btnadreservas.setContentAreaFilled(false);
+
+        btngestusuarios.setBackground(new java.awt.Color(0, 153, 51));
+        btngestusuarios.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        btngestusuarios.setForeground(new java.awt.Color(255, 255, 255));
+        btngestusuarios.setText("Gestionar usuarios");
+        btngestusuarios.setBorder(null);
+        btngestusuarios.setContentAreaFilled(false);
+
+        btnmcuenta.setBackground(new java.awt.Color(0, 153, 51));
+        btnmcuenta.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        btnmcuenta.setForeground(new java.awt.Color(255, 255, 255));
+        btnmcuenta.setText("Mi cuenta");
+        btnmcuenta.setBorder(null);
+        btnmcuenta.setContentAreaFilled(false);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btninicio, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnreserva, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnmreservas, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnadreservas, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btngestusuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnmcuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(37, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btninicio, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnreserva, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnmreservas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnadreservas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btngestusuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnmcuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(54, 54, 54))
+        );
+
+        tblgestusuarios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "ID", "Nombre", "Correo", "Telefono"
+            }
+        ));
+        jScrollPane1.setViewportView(tblgestusuarios);
+
+        jLabel1.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
+        jLabel1.setText("Gestion de Usuarios");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(300, 300, 300)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(100, 100, 100)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(jLabel1)
+                .addGap(35, 35, 35)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 50, Short.MAX_VALUE))
         );
 
         pack();
@@ -78,5 +205,16 @@ public class UserManagment extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnadreservas;
+    private javax.swing.JButton btngestusuarios;
+    private javax.swing.JButton btninicio;
+    private javax.swing.JButton btnmcuenta;
+    private javax.swing.JButton btnmreservas;
+    private javax.swing.JButton btnreserva;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblgestusuarios;
     // End of variables declaration//GEN-END:variables
 }
