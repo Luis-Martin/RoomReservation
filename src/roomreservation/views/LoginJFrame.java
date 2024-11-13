@@ -45,7 +45,7 @@ public class LoginJFrame extends javax.swing.JFrame {
 
         // Título principal
         welcomeLabel = new JLabel("Bienvenido a roomc");
-        welcomeLabel.setFont(new Font("Andale Mono", 1, 55));
+        welcomeLabel.setFont(new Font("Andale Mono", 1, 35));
         constraints = new GridBagConstraints();
         constraints.gridx = 0;
         constraints.gridy = 0;
