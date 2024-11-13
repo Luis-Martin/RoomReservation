@@ -204,7 +204,7 @@ public class SignUpJFrame extends javax.swing.JFrame {
         signUpButton.addActionListener(e -> {
             String name = nameField.getText();
             String email = emailField.getText();
-            String phone = "987654321";
+            String phone = phoneField.getText();
             String password = new String(passwordField.getPassword());
             String role = "cliente"; // Valor predeterminado para nuevos usuarios
 
