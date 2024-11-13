@@ -4,6 +4,9 @@
  */
 package roomreservation.views;
 
+import roomreservation.model.User;
+import roomreservation.controller.UserController;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -24,9 +27,6 @@ import javax.swing.*;
 import java.awt.*;
 import javax.swing.border.EmptyBorder;
 
-
-
-
 /**
  *
  * @author luism
@@ -38,6 +38,7 @@ public class LoginJFrame extends javax.swing.JFrame {
     private JPasswordField passwordField;
     private JLabel welcomeLabel, descriptionLabel, loginTitleLabel;
     private JButton loginButton;
+    UserController userController = new UserController();
     
     /**
      * Creates new form LoginJFrame
@@ -173,6 +174,18 @@ public class LoginJFrame extends javax.swing.JFrame {
         constraints.gridy = 5;
         constraints.insets = new Insets(20, 0, 20, 0);
         panel.add(loginButton, constraints);
+        // Agrega el ActionListener para manejar el inicio de sesión
+        loginButton.addActionListener(e -> {
+            String email = emailField.getText();
+            String password = new String(passwordField.getPassword());
+            // Verificar el usuario y la contraseña utilizando el nuevo método 'verifyLogin'
+            boolean loginSuccess = userController.verifyLogin(email, password);
+            if (loginSuccess) {
+                System.out.println("Login exitoso");
+            } else {
+                System.out.println("Login fallido");
+            }
+        });
         
         // Redirección a SingUp
         JLabel signUpLabel = new JLabel("¿No tienes cuenta? Regístrate");
