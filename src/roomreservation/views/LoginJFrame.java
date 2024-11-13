@@ -72,6 +72,8 @@ public class LoginJFrame extends javax.swing.JFrame {
         // Descripción
         descriptionLabel = new JLabel("Reserva el auditorio ideal para tu evento");
         descriptionLabel.setFont(new Font("Andale Mono", 1, 20));
+        descriptionLabel.setForeground(Color.decode("#000000"));
+        
         constraints = new GridBagConstraints();
         constraints.gridx = 0;
         constraints.gridy = 1;
@@ -81,6 +83,8 @@ public class LoginJFrame extends javax.swing.JFrame {
         // Título secundario "Iniciar sesión"
         loginTitleLabel = new JLabel("Iniciar sesión");
         loginTitleLabel.setFont(new Font("Andale Mono", 1, 30));
+        loginTitleLabel.setForeground(Color.decode("#000000"));
+        
         constraints = new GridBagConstraints();
         constraints.gridx = 0;
         constraints.gridy = 2;
