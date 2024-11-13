@@ -63,6 +63,39 @@ public class UserController {
         return null;
     }
 
+    // Leer usuario por correo electrónico
+    public User getUserByEmail(String email) {
+        String query = "SELECT * FROM Usuario WHERE email = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return new User(
+                    rs.getString("nombre"),
+                    rs.getString("email"),
+                    rs.getString("telefono"),
+                    rs.getString("contraseña"),
+                    rs.getString("rol")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    // Verificar inicio de sesión
+    public boolean verifyLogin(String email, String password) {
+        User user = getUserByEmail(email); // Buscar al usuario por correo electrónico
+        if (user != null) {
+            // Compara la contraseña proporcionada con la contraseña encriptada almacenada en la base de datos
+            if (user.getPassword().equals(hashPassword(password))) {
+                return true; // Login exitoso
+            }
+        }
+        return false; // Login fallido
+    }
+    
     // Actualizar usuario
     public boolean updateUser(User user) {
         String query = "UPDATE Usuario SET nombre = ?, email = ?, telefono = ?, contraseña = ?, rol = ? WHERE usuario_id = ?";
