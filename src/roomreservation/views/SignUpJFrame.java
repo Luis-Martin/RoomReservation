@@ -37,7 +37,7 @@ public class SignUpJFrame extends javax.swing.JFrame {
      */
     public SignUpJFrame() {
         // initComponents();
-        setTitle("Login");
+        setTitle("SignUp");
 
         // creacion de ventana
         JPanel panel = new JPanel(); 
