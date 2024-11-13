@@ -6,6 +6,7 @@ package roomreservation.views;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -18,6 +19,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
+
+
 
 /**
  *
@@ -43,14 +47,27 @@ public class LoginJFrame extends javax.swing.JFrame {
         panel.setLayout(new GridBagLayout());
         GridBagConstraints constraints;
 
-        // Título principal
-        welcomeLabel = new JLabel("Bienvenido a roomc");
-        welcomeLabel.setFont(new Font("Andale Mono", 1, 35));
-        constraints = new GridBagConstraints();
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        constraints.insets = new Insets(10, 0, 20, 0);
-        panel.add(welcomeLabel, constraints);
+        // Crear el primer JLabel para "Bienvenido a "
+        welcomeLabel = new JLabel("Bienvenido a ");
+        welcomeLabel.setFont(new Font("Andale Mono", Font.BOLD, 35));
+        welcomeLabel.setForeground(Color.decode("#000000"));
+       
+       // Crear el segundo JLabel solo para "roomc"
+        JLabel roomcLabel = new JLabel("roomc");
+        roomcLabel.setFont(new Font("Andale Mono", Font.BOLD, 35));
+        roomcLabel.setForeground(Color.decode("#1D6A46"));
+        
+        // Crear un JPanel con FlowLayout para poner ambos JLabel en una sola línea
+        JPanel labelPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        labelPanel.add(welcomeLabel);
+        labelPanel.add(roomcLabel);
+        
+       // Configurar los constraints y agregar el panel al layout principal
+       constraints = new GridBagConstraints();
+       constraints.gridx = 0;
+       constraints.gridy = 0;
+       constraints.insets = new Insets(10, 0, 20, 0);
+       panel.add(labelPanel, constraints);
         
         // Descripción
         descriptionLabel = new JLabel("Reserva el auditorio ideal para tu evento");
