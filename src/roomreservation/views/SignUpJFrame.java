@@ -4,6 +4,9 @@
  */
 package roomreservation.views;
 
+import roomreservation.model.User;
+import roomreservation.controller.UserController;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -30,7 +33,7 @@ public class SignUpJFrame extends javax.swing.JFrame {
     private JPasswordField passwordField;
     private JLabel welcomeLabel, descriptionLabel, loginTitleLabel;
     private JButton signUpButton;
-
+    UserController userController = new UserController();
     
     /**
      * Creates new form SignUpJFrame
@@ -159,7 +162,7 @@ public class SignUpJFrame extends javax.swing.JFrame {
         panel.add(passwordField, constraints);
         
         // Botón de inicio de sesión
-        signUpButton = new JButton("Iniciar Sesión");
+        signUpButton = new JButton("Registrar");
         signUpButton.setPreferredSize(new Dimension(452, 50));
         signUpButton.setFont(new Font("Andale Mono", 1, 23));
         signUpButton.setBackground(Color.decode("#040404"));
@@ -169,6 +172,26 @@ public class SignUpJFrame extends javax.swing.JFrame {
         constraints.gridy = 6;
         constraints.insets = new Insets(20, 0, 20, 0);
         panel.add(signUpButton, constraints);
+        // Agrega el ActionListener para imprimir los valores al presionar el botón
+        signUpButton.addActionListener(e -> {
+            String name = nameField.getText();
+            String email = emailField.getText();
+            String phone = "987654321";
+            String password = new String(passwordField.getPassword());
+            String role = "cliente"; // Valor predeterminado para nuevos usuarios
+
+            // Crear el usuario
+            User newUser = new User(name, email, phone, password, role);
+
+            // Llamar al método createUser a través de la instancia userController
+            boolean isCreated = userController.createUser(newUser);
+
+            if (isCreated) {
+                System.out.println("Usuario registrado exitosamente");
+            } else {
+                System.out.println("Error al registrar el usuario");
+            }
+        });
 
         // Redirección a SingUp
         JLabel signUpLabel = new JLabel("¿Ya tiene una cuenta? Iniciar Sesión");
