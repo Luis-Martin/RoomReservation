@@ -187,7 +187,7 @@ public class LoginJFrame extends javax.swing.JFrame {
         
         // Redirección a SingUp
         JLabel signUpLabel = new JLabel("¿No tienes cuenta? Regístrate");
-        signUpLabel.setFont(new Font("Andale Mono", Font.PLAIN, 18));
+        signUpLabel.setFont(new Font("Andale Mono", Font.PLAIN, 13));
         signUpLabel.setForeground(Color.GRAY);
         signUpLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         signUpLabel.addMouseListener(new java.awt.event.MouseAdapter() {
