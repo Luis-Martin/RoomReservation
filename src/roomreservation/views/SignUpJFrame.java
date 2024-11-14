@@ -10,6 +10,9 @@ import roomreservation.controller.UserController;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GradientPaint;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -29,7 +32,7 @@ import javax.swing.JTextField;
 public class SignUpJFrame extends javax.swing.JFrame {
 
     // Variables
-    private JTextField emailField, nameField;
+    private JTextField emailField, nameField, phoneField;
     private JPasswordField passwordField;
     private JLabel welcomeLabel, descriptionLabel, loginTitleLabel;
     private JButton signUpButton;
@@ -43,7 +46,17 @@ public class SignUpJFrame extends javax.swing.JFrame {
         setTitle("SignUp");
 
         // creacion de ventana
-        JPanel panel = new JPanel(); 
+        JPanel panel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2d = (Graphics2D) g;
+                // Degradado de color vertical desde #E7E6E6 (arriba) hasta #D4FEE4 (abajo)
+                GradientPaint gradient = new GradientPaint(0, 0, Color.decode("#E7E6E6"), 0, getHeight(), Color.decode("#D4FEE4"));
+                g2d.setPaint(gradient);
+                g2d.fillRect(0, 0, getWidth(), getHeight());
+            }
+        }; 
         panel.setLayout(new GridBagLayout());
         GridBagConstraints constraints;
 
@@ -102,6 +115,34 @@ public class SignUpJFrame extends javax.swing.JFrame {
         constraints.insets = new Insets(10, 0, 10, 0);
         panel.add(nameField, constraints);
         
+        // Campo de texto del ceular
+        phoneField = new JTextField("Teléfono");
+        phoneField.setPreferredSize(new Dimension(452, 50));
+        phoneField.setFont(new Font("Andale Mono", 1, 23));
+        phoneField.setForeground(Color.GRAY); // Color inicial del placeholder
+        phoneField.setText("Teléfono");
+        phoneField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (phoneField.getText().equals("Teléfono")) {
+                    phoneField.setText("");
+                    phoneField.setForeground(Color.BLACK);
+                }
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (phoneField.getText().isEmpty()) {
+                    phoneField.setForeground(Color.GRAY);
+                    phoneField.setText("Teléfono");
+                }
+            }
+        });
+        constraints = new GridBagConstraints();
+        constraints.gridx = 0;
+        constraints.gridy = 4;
+        constraints.insets = new Insets(10, 0, 10, 0);
+        panel.add(phoneField, constraints);
+        
         // Campo de texto de correo
         emailField = new JTextField("Correo");
         emailField.setPreferredSize(new Dimension(452, 50));
@@ -126,7 +167,7 @@ public class SignUpJFrame extends javax.swing.JFrame {
         });
         constraints = new GridBagConstraints();
         constraints.gridx = 0;
-        constraints.gridy = 4;
+        constraints.gridy = 5;
         constraints.insets = new Insets(10, 0, 10, 0);
         panel.add(emailField, constraints);
 
@@ -157,7 +198,7 @@ public class SignUpJFrame extends javax.swing.JFrame {
         });
         constraints = new GridBagConstraints();
         constraints.gridx = 0;
-        constraints.gridy = 5;
+        constraints.gridy = 6;
         constraints.insets = new Insets(10, 0, 10, 0);
         panel.add(passwordField, constraints);
         
@@ -169,14 +210,14 @@ public class SignUpJFrame extends javax.swing.JFrame {
         signUpButton.setForeground(Color.WHITE);
         constraints = new GridBagConstraints();
         constraints.gridx = 0;
-        constraints.gridy = 6;
+        constraints.gridy = 7;
         constraints.insets = new Insets(20, 0, 20, 0);
         panel.add(signUpButton, constraints);
         // Agrega el ActionListener para imprimir los valores al presionar el botón
         signUpButton.addActionListener(e -> {
             String name = nameField.getText();
             String email = emailField.getText();
-            String phone = "987654321";
+            String phone = phoneField.getText();
             String password = new String(passwordField.getPassword());
             String role = "cliente"; // Valor predeterminado para nuevos usuarios
 
@@ -207,7 +248,7 @@ public class SignUpJFrame extends javax.swing.JFrame {
         });
         constraints = new GridBagConstraints();
         constraints.gridx = 0;
-        constraints.gridy = 7;
+        constraints.gridy = 8;
         constraints.insets = new Insets(10, 0, 10, 0);
         panel.add(signUpLabel, constraints);
 
