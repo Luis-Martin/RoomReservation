@@ -62,7 +62,7 @@ public class SignUpJFrame extends javax.swing.JFrame {
 
         // Título principal
         welcomeLabel = new JLabel("Bienvenido a roomc");
-        welcomeLabel.setFont(new Font("Andale Mono", 1, 55));
+        welcomeLabel.setFont(new Font("Andale Mono", 1, 35));
         constraints = new GridBagConstraints();
         constraints.gridx = 0;
         constraints.gridy = 0;
@@ -71,16 +71,16 @@ public class SignUpJFrame extends javax.swing.JFrame {
         
         // Descripción
         descriptionLabel = new JLabel("Reserva el auditorio ideal para tu evento");
-        descriptionLabel.setFont(new Font("Andale Mono", 1, 20));
+        descriptionLabel.setFont(new Font("Andale Mono", 1, 12));
         constraints = new GridBagConstraints();
         constraints.gridx = 0;
         constraints.gridy = 1;
-        constraints.insets = new Insets(10, 0, 80, 0);
+        constraints.insets = new Insets(10, 0, 40, 0);
         panel.add(descriptionLabel, constraints);
         
         // Título secundario "Iniciar sesión"
         loginTitleLabel = new JLabel("Regístrese");
-        loginTitleLabel.setFont(new Font("Andale Mono", 1, 30));
+        loginTitleLabel.setFont(new Font("Andale Mono", 1, 18));
         constraints = new GridBagConstraints();
         constraints.gridx = 0;
         constraints.gridy = 2;
@@ -89,8 +89,8 @@ public class SignUpJFrame extends javax.swing.JFrame {
         
         // Campo de texto de nombre
         nameField = new JTextField("Nombre");
-        nameField.setPreferredSize(new Dimension(452, 50));
-        nameField.setFont(new Font("Andale Mono", 1, 23));
+        nameField.setPreferredSize(new Dimension(273, 38));
+        nameField.setFont(new Font("Andale Mono", 1, 13));
         nameField.setForeground(Color.GRAY); // Color inicial del placeholder
         nameField.setText("Nombre");
         nameField.addFocusListener(new FocusAdapter() {
@@ -117,8 +117,8 @@ public class SignUpJFrame extends javax.swing.JFrame {
         
         // Campo de texto del ceular
         phoneField = new JTextField("Teléfono");
-        phoneField.setPreferredSize(new Dimension(452, 50));
-        phoneField.setFont(new Font("Andale Mono", 1, 23));
+        phoneField.setPreferredSize(new Dimension(273, 38));
+        phoneField.setFont(new Font("Andale Mono", 1, 13));
         phoneField.setForeground(Color.GRAY); // Color inicial del placeholder
         phoneField.setText("Teléfono");
         phoneField.addFocusListener(new FocusAdapter() {
@@ -145,8 +145,8 @@ public class SignUpJFrame extends javax.swing.JFrame {
         
         // Campo de texto de correo
         emailField = new JTextField("Correo");
-        emailField.setPreferredSize(new Dimension(452, 50));
-        emailField.setFont(new Font("Andale Mono", 1, 23));
+        emailField.setPreferredSize(new Dimension(273, 38));
+        emailField.setFont(new Font("Andale Mono", 1, 13));
         emailField.setForeground(Color.GRAY); // Color inicial del placeholder
         emailField.setText("Correo");
         emailField.addFocusListener(new FocusAdapter() {
@@ -173,8 +173,8 @@ public class SignUpJFrame extends javax.swing.JFrame {
 
         // Campo de contraseña
         passwordField = new JPasswordField("Contrase;a");
-        passwordField.setPreferredSize(new Dimension(452, 50));
-        passwordField.setFont(new Font("Andale Mono", 1, 23));
+        passwordField.setPreferredSize(new Dimension(273, 38));
+        passwordField.setFont(new Font("Andale Mono", 1, 13));
         passwordField.setForeground(Color.GRAY);
         passwordField.setEchoChar((char) 0); // Mostrar texto como placeholder
         passwordField.setText("Contraseña");
@@ -204,8 +204,8 @@ public class SignUpJFrame extends javax.swing.JFrame {
         
         // Botón de inicio de sesión
         signUpButton = new JButton("Registrar");
-        signUpButton.setPreferredSize(new Dimension(452, 50));
-        signUpButton.setFont(new Font("Andale Mono", 1, 23));
+        signUpButton.setPreferredSize(new Dimension(273, 38));
+        signUpButton.setFont(new Font("Andale Mono", 1, 13));
         signUpButton.setBackground(Color.decode("#040404"));
         signUpButton.setForeground(Color.WHITE);
         constraints = new GridBagConstraints();
@@ -236,8 +236,8 @@ public class SignUpJFrame extends javax.swing.JFrame {
 
         // Redirección a SingUp
         JLabel signUpLabel = new JLabel("¿Ya tiene una cuenta? Iniciar Sesión");
-        signUpLabel.setFont(new Font("Andale Mono", Font.PLAIN, 18));
-        signUpLabel.setForeground(Color.BLUE);
+        signUpLabel.setFont(new Font("Andale Mono", Font.PLAIN, 13));
+        signUpLabel.setForeground(Color.GRAY);
         signUpLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         signUpLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
