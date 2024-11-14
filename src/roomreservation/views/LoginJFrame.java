@@ -62,35 +62,17 @@ public class LoginJFrame extends javax.swing.JFrame {
         panel.setLayout(new GridBagLayout());
         GridBagConstraints constraints;
         
-         // Establecer el color de fondo verde limón
+        // Establecer el color de fondo verde limón
         panel.setBackground(new Color(0xFFFFFF));  // Usando hexadecimal
 
-
-        // Crear el primer JLabel para "Bienvenido a "
-        welcomeLabel = new JLabel("Bienvenido a ");
-        welcomeLabel.setFont(new Font("Andale Mono", Font.BOLD, 35));
-        welcomeLabel.setForeground(Color.decode("#000000"));
-        welcomeLabel.setOpaque(true);  // Habilitar fondo opaco
-        welcomeLabel.setBackground(Color.WHITE); 
-       
-       // Crear el segundo JLabel solo para "roomc"
-        JLabel roomcLabel = new JLabel("roomc");
-        roomcLabel.setFont(new Font("Andale Mono", Font.BOLD, 35));
-        roomcLabel.setForeground(Color.decode("#1D6A46"));
-        roomcLabel.setOpaque(true);  // Habilitar fondo opaco
-        roomcLabel.setBackground(Color.WHITE);  // Establecer el fondo como blanco
-        
-        // Crear un JPanel con FlowLayout para poner ambos JLabel en una sola línea
-        JPanel labelPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        labelPanel.add(welcomeLabel);
-        labelPanel.add(roomcLabel);
-        
-       // Configurar los constraints y agregar el panel al layout principal
-       constraints = new GridBagConstraints();
-       constraints.gridx = 0;
-       constraints.gridy = 0;
-       constraints.insets = new Insets(10, 0, 20, 0);
-       panel.add(labelPanel, constraints);
+        // Título principal
+        welcomeLabel = new JLabel("<html>Bienvenido a <span style='color:#1D6A46;'>roomc</span></html>");
+        welcomeLabel.setFont(new Font("Andale Mono", 1, 35));
+        constraints = new GridBagConstraints();
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        constraints.insets = new Insets(10, 0, 20, 0);
+        panel.add(welcomeLabel, constraints);
         
         // Descripción
         descriptionLabel = new JLabel("Reserva el auditorio ideal para tu evento");

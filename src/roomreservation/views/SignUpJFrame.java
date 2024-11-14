@@ -61,7 +61,7 @@ public class SignUpJFrame extends javax.swing.JFrame {
         GridBagConstraints constraints;
 
         // Título principal
-        welcomeLabel = new JLabel("Bienvenido a roomc");
+        welcomeLabel = new JLabel("<html>Bienvenido a <span style='color:#1D6A46;'>roomc</span></html>");
         welcomeLabel.setFont(new Font("Andale Mono", 1, 35));
         constraints = new GridBagConstraints();
         constraints.gridx = 0;
