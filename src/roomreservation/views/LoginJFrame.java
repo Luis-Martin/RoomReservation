@@ -47,9 +47,20 @@ public class LoginJFrame extends javax.swing.JFrame {
         setTitle("Login");
 
         // creacion de ventana
-        JPanel panel = new JPanel(); 
+        JPanel panel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2d = (Graphics2D) g;
+                // Degradado de color vertical desde #E7E6E6 (arriba) hasta #D4FEE4 (abajo)
+                GradientPaint gradient = new GradientPaint(0, 0, Color.decode("#E7E6E6"), 0, getHeight(), Color.decode("#D4FEE4"));
+                g2d.setPaint(gradient);
+                g2d.fillRect(0, 0, getWidth(), getHeight());
+            }
+        }; 
         panel.setLayout(new GridBagLayout());
         GridBagConstraints constraints;
+        
          // Establecer el color de fondo verde limón
         panel.setBackground(new Color(0xFFFFFF));  // Usando hexadecimal
 
