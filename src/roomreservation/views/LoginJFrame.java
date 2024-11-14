@@ -19,6 +19,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import java.awt.geom.RoundRectangle2D;
+import javax.swing.*;
+import java.awt.*;
+import javax.swing.border.EmptyBorder;
 
 
 
@@ -46,16 +50,23 @@ public class LoginJFrame extends javax.swing.JFrame {
         JPanel panel = new JPanel(); 
         panel.setLayout(new GridBagLayout());
         GridBagConstraints constraints;
+         // Establecer el color de fondo verde limón
+        panel.setBackground(new Color(0xFFFFFF));  // Usando hexadecimal
+
 
         // Crear el primer JLabel para "Bienvenido a "
         welcomeLabel = new JLabel("Bienvenido a ");
         welcomeLabel.setFont(new Font("Andale Mono", Font.BOLD, 35));
         welcomeLabel.setForeground(Color.decode("#000000"));
+        welcomeLabel.setOpaque(true);  // Habilitar fondo opaco
+        welcomeLabel.setBackground(Color.WHITE); 
        
        // Crear el segundo JLabel solo para "roomc"
         JLabel roomcLabel = new JLabel("roomc");
         roomcLabel.setFont(new Font("Andale Mono", Font.BOLD, 35));
         roomcLabel.setForeground(Color.decode("#1D6A46"));
+        roomcLabel.setOpaque(true);  // Habilitar fondo opaco
+        roomcLabel.setBackground(Color.WHITE);  // Establecer el fondo como blanco
         
         // Crear un JPanel con FlowLayout para poner ambos JLabel en una sola línea
         JPanel labelPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
@@ -71,30 +82,31 @@ public class LoginJFrame extends javax.swing.JFrame {
         
         // Descripción
         descriptionLabel = new JLabel("Reserva el auditorio ideal para tu evento");
-        descriptionLabel.setFont(new Font("Andale Mono", 1, 20));
+        descriptionLabel.setFont(new Font("Andale Mono", 1, 15));
         descriptionLabel.setForeground(Color.decode("#000000"));
         
         constraints = new GridBagConstraints();
         constraints.gridx = 0;
         constraints.gridy = 1;
-        constraints.insets = new Insets(10, 0, 80, 0);
+        constraints.insets = new Insets(10, 0, 40, 0);
         panel.add(descriptionLabel, constraints);
         
         // Título secundario "Iniciar sesión"
         loginTitleLabel = new JLabel("Iniciar sesión");
         loginTitleLabel.setFont(new Font("Andale Mono", 1, 30));
         loginTitleLabel.setForeground(Color.decode("#000000"));
+        loginTitleLabel.setBounds(120, 20, 200, 40); // Ajustar según diseño
         
         constraints = new GridBagConstraints();
         constraints.gridx = 0;
         constraints.gridy = 2;
-        constraints.insets = new Insets(20, 0, 10, 0);
+        constraints.insets = new Insets(10, 0, 10, 0);
         panel.add(loginTitleLabel, constraints);
-        
+             
         // Campo de texto de correo
         emailField = new JTextField("Correo");
-        emailField.setPreferredSize(new Dimension(452, 50));
-        emailField.setFont(new Font("Andale Mono", 1, 23));
+        emailField.setPreferredSize(new Dimension(273, 38));
+        emailField.setFont(new Font("Andale Mono", 1, 13));
         emailField.setForeground(Color.GRAY); // Color inicial del placeholder
         emailField.setText("Correo");
         emailField.addFocusListener(new FocusAdapter() {
@@ -121,8 +133,8 @@ public class LoginJFrame extends javax.swing.JFrame {
 
         // Campo de contraseña
         passwordField = new JPasswordField("Contrase;a");
-        passwordField.setPreferredSize(new Dimension(452, 50));
-        passwordField.setFont(new Font("Andale Mono", 1, 23));
+        passwordField.setPreferredSize(new Dimension(273, 38));
+        passwordField.setFont(new Font("Andale Mono", 1, 13));
         passwordField.setForeground(Color.GRAY);
         passwordField.setEchoChar((char) 0); // Mostrar texto como placeholder
         passwordField.setText("Contraseña");
@@ -152,8 +164,8 @@ public class LoginJFrame extends javax.swing.JFrame {
         
         // Botón de inicio de sesión
         loginButton = new JButton("Iniciar Sesión");
-        loginButton.setPreferredSize(new Dimension(452, 50));
-        loginButton.setFont(new Font("Andale Mono", 1, 23));
+        loginButton.setPreferredSize(new Dimension(273, 38));
+        loginButton.setFont(new Font("Andale Mono", 1, 15));
         loginButton.setBackground(Color.decode("#040404"));
         loginButton.setForeground(Color.WHITE);
         constraints = new GridBagConstraints();
@@ -165,7 +177,7 @@ public class LoginJFrame extends javax.swing.JFrame {
         // Redirección a SingUp
         JLabel signUpLabel = new JLabel("¿No tienes cuenta? Regístrate");
         signUpLabel.setFont(new Font("Andale Mono", Font.PLAIN, 18));
-        signUpLabel.setForeground(Color.BLUE);
+        signUpLabel.setForeground(Color.GRAY);
         signUpLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         signUpLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
