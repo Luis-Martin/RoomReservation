@@ -78,24 +78,23 @@ public class AdministrateJFrame extends javax.swing.JFrame {
             dispose(); // Cierra el JFrame actual
         });
         
-        mniReservation.addActionListener((var e) -> {
-            new ReservationJFrame().setVisible(true); // Abre el JFrame Reservar
+         mniHistory.addActionListener((var e) -> {
+            new HistoryJFrame().setVisible(true); // Abre el JFrame History
             dispose(); // Cierra el JFrame actual
         });
         
-        mniHistory.addActionListener((var e) -> {
-            new ReservationJFrame().setVisible(true); // Abre el JFrame Reservar
+        mniAdministration.addActionListener((var e) -> {
+            new AdministrateJFrame().setVisible(true); // Abre el JFrame Adminitratrate
             dispose(); // Cierra el JFrame actual
         });
-        
         
         mniProfile.addActionListener((var e) -> {
-            new ReservationJFrame().setVisible(true); // Abre el JFrame Reservar
+            new ProfileJFrame().setVisible(true); // Abre el JFrame Profile
             dispose(); // Cierra el JFrame actual
         });
         
         mniUserManagement.addActionListener((var e) -> {
-            new ReservationJFrame().setVisible(true); // Abre el JFrame Reservar
+            new UserManagementJFrame().setVisible(true); // Abre el JFrame UserManagement
             dispose(); // Cierra el JFrame actual
         });
         

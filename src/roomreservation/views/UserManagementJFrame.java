@@ -76,23 +76,23 @@ public class UserManagementJFrame extends javax.swing.JFrame {
             dispose(); // Cierra el JFrame actual
         });
         
-        mniReservation.addActionListener((var e) -> {
-            new ReservationJFrame().setVisible(true); // Abre el JFrame Reservar
-            dispose(); // Cierra el JFrame actual
-        });
-        
-        mniHistory.addActionListener((var e) -> {
-            new ReservationJFrame().setVisible(true); // Abre el JFrame Reservar
+         mniHistory.addActionListener((var e) -> {
+            new HistoryJFrame().setVisible(true); // Abre el JFrame History
             dispose(); // Cierra el JFrame actual
         });
         
         mniAdministration.addActionListener((var e) -> {
-            new ReservationJFrame().setVisible(true); // Abre el JFrame Reservar
+            new AdministrateJFrame().setVisible(true); // Abre el JFrame Adminitratrate
             dispose(); // Cierra el JFrame actual
         });
         
         mniProfile.addActionListener((var e) -> {
-            new ReservationJFrame().setVisible(true); // Abre el JFrame Reservar
+            new ProfileJFrame().setVisible(true); // Abre el JFrame Profile
+            dispose(); // Cierra el JFrame actual
+        });
+        
+        mniUserManagement.addActionListener((var e) -> {
+            new UserManagementJFrame().setVisible(true); // Abre el JFrame UserManagement
             dispose(); // Cierra el JFrame actual
         });
         
