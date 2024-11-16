@@ -26,6 +26,7 @@ import java.awt.geom.RoundRectangle2D;
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.border.EmptyBorder;
+import roomreservation.RoomReservation;
 
 /**
  *
@@ -174,7 +175,8 @@ public class LoginJFrame extends javax.swing.JFrame {
             // Verificar el usuario y la contraseña utilizando el nuevo método 'verifyLogin'
             boolean loginSuccess = userController.verifyLogin(email, password);
             if (loginSuccess) {
-                System.out.println("Login exitoso");
+                RoomReservation.loggedInUser = userController.getUserByEmail(email);
+                System.out.println("Usuario logueado: " + RoomReservation.loggedInUser.getName());
                 new HomeJFrame().setVisible(true);
                 dispose();
             } else {
