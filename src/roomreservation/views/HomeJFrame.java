@@ -19,7 +19,7 @@ import javax.swing.border.LineBorder;
 
 
 
-public class Inicio extends javax.swing.JFrame {
+public class HomeJFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form Inicio
@@ -36,13 +36,13 @@ public class Inicio extends javax.swing.JFrame {
     private final JMenuItem mniMiCuenta;
     private final JMenuItem mniGestionDeUsuario;
     private final JMenuItem mniSalir;
-    public Inicio() {
+    public HomeJFrame() {
         initComponents();  
         
         setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
         
 
- // Configuración del JMenuBar
+        // Configuración del JMenuBar
         mbMenu = new JMenuBar();
         mbMenu.setPreferredSize(new Dimension(1468, 140));
         mbMenu.setOpaque(false);     // Para ajustar la opacidad
@@ -78,27 +78,27 @@ public class Inicio extends javax.swing.JFrame {
         mbMenu.add(mniSalir);
         
         mniReservar.addActionListener((var e) -> {
-            new Reservar().setVisible(true); // Abre el JFrame Reservar
+            new ReservationJFrame().setVisible(true); // Abre el JFrame Reservar
             dispose(); // Cierra el JFrame actual
         });
         
         mniVerMisReservas.addActionListener((var e) -> {
-            new Reservar().setVisible(true); // Abre el JFrame Reservar
+            new ReservationJFrame().setVisible(true); // Abre el JFrame Reservar
             dispose(); // Cierra el JFrame actual
         });
         
         mniAdministrarReservas.addActionListener((var e) -> {
-            new Reservar().setVisible(true); // Abre el JFrame Reservar
+            new ReservationJFrame().setVisible(true); // Abre el JFrame Reservar
             dispose(); // Cierra el JFrame actual
         });
         
         mniMiCuenta.addActionListener((var e) -> {
-            new Reservar().setVisible(true); // Abre el JFrame Reservar
+            new ReservationJFrame().setVisible(true); // Abre el JFrame Reservar
             dispose(); // Cierra el JFrame actual
         });
         
         mniGestionDeUsuario.addActionListener((var e) -> {
-            new Reservar().setVisible(true); // Abre el JFrame Reservar
+            new ReservationJFrame().setVisible(true); // Abre el JFrame Reservar
             dispose(); // Cierra el JFrame actual
         });
         
@@ -185,21 +185,23 @@ public class Inicio extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HomeJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HomeJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HomeJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HomeJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Inicio().setVisible(true);
+                new HomeJFrame().setVisible(true);
             }
         });
     }

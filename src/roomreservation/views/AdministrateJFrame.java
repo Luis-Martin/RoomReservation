@@ -16,13 +16,13 @@ import javax.swing.border.LineBorder;
  *
  * @author USUARIO
  */
-public class MiCuenta extends javax.swing.JFrame {
+public class AdministrateJFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form MiCuenta
+     * Creates new form AdministrarReservas
      */
     
-    Color mColorFondo = new Color(18, 54, 41);
+   Color mColorFondo = new Color(18, 54, 41);
     
     
     private final JMenuItem mniRoomc;
@@ -34,9 +34,10 @@ public class MiCuenta extends javax.swing.JFrame {
     private final JMenuItem mniGestionDeUsuario;
     private final JMenuItem mniSalir;
     
-    public MiCuenta() {
+    public AdministrateJFrame() {
         initComponents();
-    setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
+        
+        setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
         
        // Configuración del JMenuBar
         mbMenu = new JMenuBar();
@@ -72,27 +73,28 @@ public class MiCuenta extends javax.swing.JFrame {
         mbMenu.add(mniSalir);
         
         mniInicio.addActionListener((ActionEvent e) -> {
-            new Inicio().setVisible(true); // Abre otro JFrame Inicio
+            new HomeJFrame().setVisible(true); // Abre otro JFrame Inicio
             dispose(); // Cierra el JFrame actual
         });
         
         mniReservar.addActionListener((var e) -> {
-            new Reservar().setVisible(true); // Abre el JFrame Reservar
+            new ReservationJFrame().setVisible(true); // Abre el JFrame Reservar
             dispose(); // Cierra el JFrame actual
         });
         
         mniVerMisReservas.addActionListener((var e) -> {
-            new Reservar().setVisible(true); // Abre el JFrame Reservar
+            new ReservationJFrame().setVisible(true); // Abre el JFrame Reservar
             dispose(); // Cierra el JFrame actual
         });
         
-        mniAdministrarReservas.addActionListener((var e) -> {
-            new Reservar().setVisible(true); // Abre el JFrame Reservar
+        
+        mniMiCuenta.addActionListener((var e) -> {
+            new ReservationJFrame().setVisible(true); // Abre el JFrame Reservar
             dispose(); // Cierra el JFrame actual
         });
         
         mniGestionDeUsuario.addActionListener((var e) -> {
-            new Reservar().setVisible(true); // Abre el JFrame Reservar
+            new ReservationJFrame().setVisible(true); // Abre el JFrame Reservar
             dispose(); // Cierra el JFrame actual
         });
         
@@ -113,6 +115,8 @@ public class MiCuenta extends javax.swing.JFrame {
         menuItem.setBackground(mColorFondo);
         return menuItem;
     }
+        
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -123,8 +127,17 @@ public class MiCuenta extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
         jPanel1 = new javax.swing.JPanel();
         mbMenu = new javax.swing.JMenuBar();
+
+        jMenu1.setText("File");
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Edit");
+        jMenuBar1.add(jMenu2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -172,25 +185,29 @@ public class MiCuenta extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MiCuenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdministrateJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MiCuenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdministrateJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MiCuenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdministrateJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MiCuenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdministrateJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MiCuenta().setVisible(true);
+                new AdministrateJFrame().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenuBar mbMenu;
     // End of variables declaration//GEN-END:variables

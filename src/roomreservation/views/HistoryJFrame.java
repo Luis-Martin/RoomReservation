@@ -16,12 +16,14 @@ import javax.swing.border.LineBorder;
  *
  * @author USUARIO
  */
-public class GestionDeUsuario extends javax.swing.JFrame {
+
+
+public class HistoryJFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form GestionDeUsuario
+     * Creates new form VerMisReservas
      */
-       Color mColorFondo = new Color(18, 54, 41);
+    Color mColorFondo = new Color(18, 54, 41);
     
     
     private final JMenuItem mniRoomc;
@@ -33,9 +35,9 @@ public class GestionDeUsuario extends javax.swing.JFrame {
     private final JMenuItem mniGestionDeUsuario;
     private final JMenuItem mniSalir;
     
-    public GestionDeUsuario() {
+    public HistoryJFrame() {
         initComponents();
-            setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
+        setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
         
        // Configuración del JMenuBar
         mbMenu = new JMenuBar();
@@ -71,35 +73,33 @@ public class GestionDeUsuario extends javax.swing.JFrame {
         mbMenu.add(mniSalir);
         
         mniInicio.addActionListener((ActionEvent e) -> {
-            new Inicio().setVisible(true); // Abre otro JFrame Inicio
+            new HomeJFrame().setVisible(true); // Abre otro JFrame Inicio
             dispose(); // Cierra el JFrame actual
         });
         
         mniReservar.addActionListener((var e) -> {
-            new Reservar().setVisible(true); // Abre el JFrame Reservar
-            dispose(); // Cierra el JFrame actual
-        });
-        
-        mniVerMisReservas.addActionListener((var e) -> {
-            new Reservar().setVisible(true); // Abre el JFrame Reservar
+            new ReservationJFrame().setVisible(true); // Abre el JFrame Reservar
             dispose(); // Cierra el JFrame actual
         });
         
         mniAdministrarReservas.addActionListener((var e) -> {
-            new Reservar().setVisible(true); // Abre el JFrame Reservar
+            new ReservationJFrame().setVisible(true); // Abre el JFrame Reservar
             dispose(); // Cierra el JFrame actual
         });
         
         mniMiCuenta.addActionListener((var e) -> {
-            new Reservar().setVisible(true); // Abre el JFrame Reservar
+            new ReservationJFrame().setVisible(true); // Abre el JFrame Reservar
+            dispose(); // Cierra el JFrame actual
+        });
+        
+        mniGestionDeUsuario.addActionListener((var e) -> {
+            new ReservationJFrame().setVisible(true); // Abre el JFrame Reservar
             dispose(); // Cierra el JFrame actual
         });
         
          mniSalir.addActionListener((ActionEvent e) -> {
          System.exit(0);
          });
-
-        
 
 
         setJMenuBar(mbMenu);
@@ -115,8 +115,6 @@ public class GestionDeUsuario extends javax.swing.JFrame {
         return menuItem;
     }
 
-    
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -175,20 +173,21 @@ public class GestionDeUsuario extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GestionDeUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HistoryJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GestionDeUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HistoryJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GestionDeUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HistoryJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GestionDeUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HistoryJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GestionDeUsuario().setVisible(true);
+                new HistoryJFrame().setVisible(true);
             }
         });
     }

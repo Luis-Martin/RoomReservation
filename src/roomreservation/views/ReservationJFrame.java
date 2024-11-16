@@ -17,7 +17,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.border.LineBorder;
 
-public class Reservar extends javax.swing.JFrame {
+public class ReservationJFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form Reservar
@@ -35,7 +35,7 @@ public class Reservar extends javax.swing.JFrame {
     private final JMenuItem mniGestionDeUsuario;
     private final JMenuItem mniSalir;
     
-    public Reservar() {
+    public ReservationJFrame() {
         
         initComponents();
         setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
@@ -74,27 +74,27 @@ public class Reservar extends javax.swing.JFrame {
         mbMenu.add(mniSalir);
         
         mniInicio.addActionListener((ActionEvent e) -> {
-            new Inicio().setVisible(true); // Abre otro JFrame Inicio
+            new HomeJFrame().setVisible(true); // Abre otro JFrame Inicio
             dispose(); // Cierra el JFrame actual
         });
         
         mniVerMisReservas.addActionListener((var e) -> {
-            new Reservar().setVisible(true); // Abre el JFrame Reservar
+            new ReservationJFrame().setVisible(true); // Abre el JFrame Reservar
             dispose(); // Cierra el JFrame actual
         });
         
         mniAdministrarReservas.addActionListener((var e) -> {
-            new Reservar().setVisible(true); // Abre el JFrame Reservar
+            new ReservationJFrame().setVisible(true); // Abre el JFrame Reservar
             dispose(); // Cierra el JFrame actual
         });
         
         mniMiCuenta.addActionListener((var e) -> {
-            new Reservar().setVisible(true); // Abre el JFrame Reservar
+            new ReservationJFrame().setVisible(true); // Abre el JFrame Reservar
             dispose(); // Cierra el JFrame actual
         });
         
         mniGestionDeUsuario.addActionListener((var e) -> {
-            new Reservar().setVisible(true); // Abre el JFrame Reservar
+            new ReservationJFrame().setVisible(true); // Abre el JFrame Reservar
             dispose(); // Cierra el JFrame actual
         });
         
@@ -174,21 +174,23 @@ public class Reservar extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Reservar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReservationJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Reservar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReservationJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Reservar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReservationJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Reservar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReservationJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Reservar().setVisible(true);
+                new ReservationJFrame().setVisible(true);
             }
         });
     }
