@@ -26,13 +26,13 @@ public class AdministrateJFrame extends javax.swing.JFrame {
     
     
     private final JMenuItem mniRoomc;
-    private final JMenuItem mniInicio;
-    private final JMenuItem mniReservar;
-    private final JMenuItem mniVerMisReservas;
-    private final JMenuItem mniAdministrarReservas;
-    private final JMenuItem mniMiCuenta;
-    private final JMenuItem mniGestionDeUsuario;
-    private final JMenuItem mniSalir;
+    private final JMenuItem mniHome;
+    private final JMenuItem mniReservation;
+    private final JMenuItem mniHistory;
+    private final JMenuItem mniAdministration;
+    private final JMenuItem mniProfile;
+    private final JMenuItem mniUserManagement;
+    private final JMenuItem mniExit;
     
     public AdministrateJFrame() {
         initComponents();
@@ -54,51 +54,51 @@ public class AdministrateJFrame extends javax.swing.JFrame {
         mniRoomc.setBackground(mColorFondo);
 
         Font menuFont = new Font("Inter", Font.PLAIN, 16); // Fuente para los otros menús
-        mniInicio = createMenuItem("Inicio", menuFont);
-        mniReservar = createMenuItem("Reservar", menuFont);
-        mniVerMisReservas = createMenuItem("Ver Mis Reservas", menuFont);
-        mniAdministrarReservas = createMenuItem("Administrar Reservas", menuFont);
-        mniMiCuenta = createMenuItem("Mi Cuenta", menuFont);
-        mniGestionDeUsuario = createMenuItem("Gestión De Usuario", menuFont);
-        mniSalir = createMenuItem("Salir", menuFont);
+        mniHome = createMenuItem("Inicio", menuFont);
+        mniReservation = createMenuItem("Reservar", menuFont);
+        mniHistory = createMenuItem("Historial", menuFont);
+        mniAdministration = createMenuItem("Administrar", menuFont);
+        mniProfile = createMenuItem("Perfil", menuFont);
+        mniUserManagement = createMenuItem("Gestionar Usuarios", menuFont);
+        mniExit = createMenuItem("Salir", menuFont);
 
         // Agregar ítems al menú
         mbMenu.add(mniRoomc);
-        mbMenu.add(mniInicio);
-        mbMenu.add(mniReservar);
-        mbMenu.add(mniVerMisReservas);
-        mbMenu.add(mniAdministrarReservas);
-        mbMenu.add(mniMiCuenta);
-        mbMenu.add(mniGestionDeUsuario);
-        mbMenu.add(mniSalir);
+        mbMenu.add(mniHome);
+        mbMenu.add(mniReservation);
+        mbMenu.add(mniHistory);
+        mbMenu.add(mniAdministration);
+        mbMenu.add(mniProfile);
+        mbMenu.add(mniUserManagement);
+        mbMenu.add(mniExit);
         
-        mniInicio.addActionListener((ActionEvent e) -> {
+        mniHome.addActionListener((ActionEvent e) -> {
             new HomeJFrame().setVisible(true); // Abre otro JFrame Inicio
             dispose(); // Cierra el JFrame actual
         });
         
-        mniReservar.addActionListener((var e) -> {
+        mniReservation.addActionListener((var e) -> {
             new ReservationJFrame().setVisible(true); // Abre el JFrame Reservar
             dispose(); // Cierra el JFrame actual
         });
         
-        mniVerMisReservas.addActionListener((var e) -> {
+        mniHistory.addActionListener((var e) -> {
             new ReservationJFrame().setVisible(true); // Abre el JFrame Reservar
             dispose(); // Cierra el JFrame actual
         });
         
         
-        mniMiCuenta.addActionListener((var e) -> {
+        mniProfile.addActionListener((var e) -> {
             new ReservationJFrame().setVisible(true); // Abre el JFrame Reservar
             dispose(); // Cierra el JFrame actual
         });
         
-        mniGestionDeUsuario.addActionListener((var e) -> {
+        mniUserManagement.addActionListener((var e) -> {
             new ReservationJFrame().setVisible(true); // Abre el JFrame Reservar
             dispose(); // Cierra el JFrame actual
         });
         
-         mniSalir.addActionListener((ActionEvent e) -> {
+         mniExit.addActionListener((ActionEvent e) -> {
          System.exit(0);
          });
 
