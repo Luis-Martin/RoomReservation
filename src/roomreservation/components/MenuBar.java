@@ -6,11 +6,13 @@ package roomreservation.components;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import roomreservation.views.AdministrateJFrame;
 import roomreservation.views.HistoryJFrame;
@@ -36,11 +38,11 @@ public class MenuBar {
 
     public MenuBar(JFrame parentFrame) {
         mbMenu = new JMenuBar();
-        mbMenu.setPreferredSize(new Dimension(1468, 140));
+        mbMenu.setPreferredSize(new Dimension(0, 100));
         mbMenu.setOpaque(false);  // Para ajustar la opacidad
         mbMenu.setBackground(mColorFondo);   
-        mbMenu.setBorder(new LineBorder(mColorFondo, 1));  
-
+        mbMenu.setBorder(new LineBorder(mColorFondo, 1));
+        
         // Crear y agregar los ítems al menú
         mniRoomc = createMenuItem("Roomc", new Font("Inter", Font.BOLD, 40));
         mniHome = createMenuItem("Inicio", new Font("Inter", Font.PLAIN, 16));
@@ -98,6 +100,7 @@ public class MenuBar {
         menuItem.setFont(font);
         menuItem.setForeground(Color.white);
         menuItem.setBackground(mColorFondo);
+        menuItem.setHorizontalAlignment(SwingConstants.CENTER);
         return menuItem;
     }
 
