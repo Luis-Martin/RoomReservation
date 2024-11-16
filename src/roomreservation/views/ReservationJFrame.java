@@ -16,6 +16,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.border.LineBorder;
+import roomreservation.components.MenuBar;
 
 public class ReservationJFrame extends javax.swing.JFrame {
 
@@ -23,17 +24,7 @@ public class ReservationJFrame extends javax.swing.JFrame {
      * Creates new form Reservar
      */
     
-   Color mColorFondo = new Color(18, 54, 41);
-    
-    
-    private final JMenuItem mniRoomc;
-    private final JMenuItem mniHome;
-    private final JMenuItem mniReservation;
-    private final JMenuItem mniHistory;
-    private final JMenuItem mniAdministration;
-    private final JMenuItem mniProfile;
-    private final JMenuItem mniUserManagement;
-    private final JMenuItem mniExit;
+    Color mColorFondo = new Color(18, 54, 41);
     
     public ReservationJFrame() {
         
@@ -41,70 +32,11 @@ public class ReservationJFrame extends javax.swing.JFrame {
         setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
         setTitle("Reservar");
         
-       // Configuración del JMenuBar
-        mbMenu = new JMenuBar();
-        mbMenu.setPreferredSize(new Dimension(1468, 140));
-        mbMenu.setOpaque(false);     // Para ajustar la opacidad
-        mbMenu.setBackground(mColorFondo);   
-        mbMenu.setBorder(new LineBorder(mColorFondo, 1));        
-        
-        // Configuración de los elementos del menú
-        mniRoomc = new JMenuItem("Roomc");
-        mniRoomc.setOpaque(true);
-        mniRoomc.setFont(new Font("Inter", Font.BOLD, 40)); // Configuración de fuente para "Roomc"
-        mniRoomc.setForeground(Color.white);
-        mniRoomc.setBackground(mColorFondo);
+        // Usar la clase MenuBar para agregar el JMenuBar
+        MenuBar menuBar = new MenuBar(this);  // Pasamos 'this' para que el menú conozca el JFrame actual
+        setJMenuBar(menuBar.getMenuBar());  // Configura el JMenuBar en el JFrame
 
-        Font menuFont = new Font("Inter", Font.PLAIN, 16); // Fuente para los otros menús
-        mniHome = createMenuItem("Inicio", menuFont);
-        mniReservation = createMenuItem("Reservar", menuFont);
-        mniHistory = createMenuItem("Historial", menuFont);
-        mniAdministration = createMenuItem("Administrar", menuFont);
-        mniProfile = createMenuItem("Perfil", menuFont);
-        mniUserManagement = createMenuItem("Gestionar Usuarios", menuFont);
-        mniExit = createMenuItem("Salir", menuFont);
-
-        // Agregar ítems al menú
-        mbMenu.add(mniRoomc);
-        mbMenu.add(mniHome);
-        mbMenu.add(mniReservation);
-        mbMenu.add(mniHistory);
-        mbMenu.add(mniAdministration);
-        mbMenu.add(mniProfile);
-        mbMenu.add(mniUserManagement);
-        mbMenu.add(mniExit);
-        
-        mniHome.addActionListener((ActionEvent e) -> {
-            new HomeJFrame().setVisible(true); // Abre otro JFrame Inicio
-            dispose(); // Cierra el JFrame actual
-        });
-        
-         mniHistory.addActionListener((var e) -> {
-            new HistoryJFrame().setVisible(true); // Abre el JFrame History
-            dispose(); // Cierra el JFrame actual
-        });
-        
-        mniAdministration.addActionListener((var e) -> {
-            new AdministrateJFrame().setVisible(true); // Abre el JFrame Adminitratrate
-            dispose(); // Cierra el JFrame actual
-        });
-        
-        mniProfile.addActionListener((var e) -> {
-            new ProfileJFrame().setVisible(true); // Abre el JFrame Profile
-            dispose(); // Cierra el JFrame actual
-        });
-        
-        mniUserManagement.addActionListener((var e) -> {
-            new UserManagementJFrame().setVisible(true); // Abre el JFrame UserManagement
-            dispose(); // Cierra el JFrame actual
-        });
-        
-         mniExit.addActionListener((ActionEvent e) -> {
-         System.exit(0);
-         });
-
-
-        setJMenuBar(mbMenu);
+        // Colocar el resto del código para el JFrame
         
 
     }
