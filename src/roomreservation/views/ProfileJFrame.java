@@ -36,9 +36,10 @@ public class ProfileJFrame extends javax.swing.JFrame {
     
     public ProfileJFrame() {
         initComponents();
-    setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
+        setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
+        setTitle("Perfil");
         
-       // Configuración del JMenuBar
+        // Configuración del JMenuBar
         mbMenu = new JMenuBar();
         mbMenu.setPreferredSize(new Dimension(1468, 140));
         mbMenu.setOpaque(false);     // Para ajustar la opacidad

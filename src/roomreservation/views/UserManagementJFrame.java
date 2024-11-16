@@ -35,7 +35,8 @@ public class UserManagementJFrame extends javax.swing.JFrame {
     
     public UserManagementJFrame() {
         initComponents();
-            setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
+        setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
+        setTitle("Adminitrar Usuarios");
         
        // Configuración del JMenuBar
         mbMenu = new JMenuBar();

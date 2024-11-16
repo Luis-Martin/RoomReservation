@@ -39,6 +39,7 @@ public class ReservationJFrame extends javax.swing.JFrame {
         
         initComponents();
         setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
+        setTitle("Reservar");
         
        // Configuración del JMenuBar
         mbMenu = new JMenuBar();

@@ -40,7 +40,7 @@ public class HomeJFrame extends javax.swing.JFrame {
         initComponents();  
         
         setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
-        
+        setTitle("Inicio");
 
         // Configuración del JMenuBar
         mbMenu = new JMenuBar();

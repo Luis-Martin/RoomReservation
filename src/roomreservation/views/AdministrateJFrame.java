@@ -38,6 +38,7 @@ public class AdministrateJFrame extends javax.swing.JFrame {
         initComponents();
         
         setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
+        setTitle("Adminitrar");
         
        // Configuración del JMenuBar
         mbMenu = new JMenuBar();

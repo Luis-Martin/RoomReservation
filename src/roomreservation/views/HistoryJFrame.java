@@ -38,6 +38,7 @@ public class HistoryJFrame extends javax.swing.JFrame {
     public HistoryJFrame() {
         initComponents();
         setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
+        setTitle("Historial");
         
        // Configuración del JMenuBar
         mbMenu = new JMenuBar();
