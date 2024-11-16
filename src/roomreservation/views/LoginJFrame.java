@@ -175,8 +175,11 @@ public class LoginJFrame extends javax.swing.JFrame {
             boolean loginSuccess = userController.verifyLogin(email, password);
             if (loginSuccess) {
                 System.out.println("Login exitoso");
+                new HomeJFrame().setVisible(true);
+                dispose();
             } else {
                 System.out.println("Login fallido");
+                JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrecta", "Error de Login", JOptionPane.ERROR_MESSAGE);
             }
         });
         
