@@ -4,49 +4,17 @@
  */
 package roomreservation.views;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.border.LineBorder;
-import roomreservation.components.MenuBar;
-
 /**
  *
- * @author USUARIO
+ * @author Cordero
  */
-
-
-public class HistoryJFrame extends javax.swing.JFrame {
+public class EditProfile extends javax.swing.JFrame {
 
     /**
-     * Creates new form VerMisReservas
+     * Creates new form EditProfile
      */
-    
-    Color mColorFondo = new Color(18, 54, 41);
-    
-    public HistoryJFrame() {
+    public EditProfile() {
         initComponents();
-        setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
-        setTitle("Historial");
-        
-       // Usar la clase MenuBar para agregar el JMenuBar
-        MenuBar menuBar = new MenuBar(this);  // Pasamos 'this' para que el menú conozca el JFrame actual
-        setJMenuBar(menuBar.getMenuBar());  // Configura el JMenuBar en el JFrame
-
-        // Colocar el resto del código para el JFrame
-        
-
-    }
-      private JMenuItem createMenuItem(String text, Font font) {
-        JMenuItem menuItem = new JMenuItem(text);
-        menuItem.setOpaque(true);
-        menuItem.setFont(font);
-        menuItem.setForeground(Color.white);
-        menuItem.setBackground(mColorFondo);
-        return menuItem;
     }
 
     /**
@@ -58,25 +26,7 @@ public class HistoryJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-<<<<<<< HEAD:src/roomreservation/views/HistoryJFrame.java
         jPanel1 = new javax.swing.JPanel();
-        mbMenu = new javax.swing.JMenuBar();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 299, Short.MAX_VALUE)
-        );
-
-        setJMenuBar(mbMenu);
-=======
         jPanel2 = new javax.swing.JPanel();
         btninicio = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -85,11 +35,20 @@ public class HistoryJFrame extends javax.swing.JFrame {
         btnadreservas = new javax.swing.JButton();
         btngestusuarios = new javax.swing.JButton();
         btnmcuenta = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblgestusuarios = new javax.swing.JTable();
+        lblcorreo = new javax.swing.JLabel();
+        lblcont = new javax.swing.JLabel();
+        lbltel = new javax.swing.JLabel();
+        btnguardar = new javax.swing.JButton();
+        btncanc = new javax.swing.JButton();
+        txtcorreo = new javax.swing.JTextField();
+        txttel = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        psfcontra = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(0, 153, 51));
 
@@ -175,55 +134,49 @@ public class HistoryJFrame extends javax.swing.JFrame {
                 .addGap(54, 54, 54))
         );
 
-        tblgestusuarios.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "ID", "Nombre", "Correo", "Telefono"
-            }
-        ));
-        jScrollPane1.setViewportView(tblgestusuarios);
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 50));
+
+        lblcorreo.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
+        lblcorreo.setText("Correo");
+        jPanel1.add(lblcorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 180, -1, -1));
+
+        lblcont.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
+        lblcont.setText("Contraseña");
+        jPanel1.add(lblcont, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 280, -1, -1));
+
+        lbltel.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
+        lbltel.setText("Telefono");
+        jPanel1.add(lbltel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 230, -1, -1));
+
+        btnguardar.setText("Guardar");
+        jPanel1.add(btnguardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 380, -1, -1));
+
+        btncanc.setText("Cancelar");
+        jPanel1.add(btncanc, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 380, -1, -1));
+        jPanel1.add(txtcorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, 120, -1));
+        jPanel1.add(txttel, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 230, 120, -1));
+
+        jLabel6.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 130, 210, 200));
+
+        psfcontra.setText("jPasswordField1");
+        jPanel1.add(psfcontra, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 280, 120, -1));
 
         jLabel1.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
-        jLabel1.setText("Gestion de Usuarios");
->>>>>>> ui-frames:src/roomreservation/views/UserManagment.java
+        jLabel1.setText("Mi Cuenta");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 90, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-<<<<<<< HEAD:src/roomreservation/views/HistoryJFrame.java
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-=======
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(300, 300, 300)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(100, 100, 100)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
-                .addComponent(jLabel1)
-                .addGap(35, 35, 35)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 50, Short.MAX_VALUE))
->>>>>>> ui-frames:src/roomreservation/views/UserManagment.java
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 22, Short.MAX_VALUE))
         );
 
         pack();
@@ -246,41 +199,43 @@ public class HistoryJFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(HistoryJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(HistoryJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(HistoryJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(HistoryJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new HistoryJFrame().setVisible(true);
+                new EditProfile().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-<<<<<<< HEAD:src/roomreservation/views/HistoryJFrame.java
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JMenuBar mbMenu;
-=======
     private javax.swing.JButton btnadreservas;
+    private javax.swing.JButton btncanc;
     private javax.swing.JButton btngestusuarios;
+    private javax.swing.JButton btnguardar;
     private javax.swing.JButton btninicio;
     private javax.swing.JButton btnmcuenta;
     private javax.swing.JButton btnmreservas;
     private javax.swing.JButton btnreserva;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblgestusuarios;
->>>>>>> ui-frames:src/roomreservation/views/UserManagment.java
+    private javax.swing.JLabel lblcont;
+    private javax.swing.JLabel lblcorreo;
+    private javax.swing.JLabel lbltel;
+    private javax.swing.JPasswordField psfcontra;
+    private javax.swing.JTextField txtcorreo;
+    private javax.swing.JTextField txttel;
     // End of variables declaration//GEN-END:variables
 }
