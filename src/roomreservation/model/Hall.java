@@ -13,7 +13,6 @@ public class Hall {
     private String name; // Equivalente a nombre
     private int maxCapacity; // Equivalente a capacidad_max
     private double pricePerHour; // Equivalente a precio_hora
-    private boolean isReserved; // Equivalente a reservado (tinyint)
 
     // Constructor vacío
     public Hall() {
@@ -25,7 +24,6 @@ public class Hall {
         this.name = name;
         this.maxCapacity = maxCapacity;
         this.pricePerHour = pricePerHour;
-        this.isReserved = isReserved;
     }
 
     // Getters y Setters
