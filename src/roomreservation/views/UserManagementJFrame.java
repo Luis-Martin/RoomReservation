@@ -192,6 +192,7 @@ public class UserManagementJFrame extends javax.swing.JFrame {
             }
         });
     }
+    
 
     // Variables declaration - do not modify
     private javax.swing.JPanel jPanel1;
