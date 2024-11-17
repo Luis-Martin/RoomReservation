@@ -19,10 +19,12 @@ public class RoomReservation {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        // Conectar con la base de datos
         DBConnection dbc = new DBConnection();
         dbc.conect();
-        // TODO code application logic here
-        new LoginJFrame();
+        
+        // Inicializar la ventana de login
+        new LoginJFrame().setVisible(true);
     }
     
 }
