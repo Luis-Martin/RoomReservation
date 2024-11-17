@@ -19,7 +19,7 @@ public class Hall {
     }
 
     // Constructor con parámetros
-    public Hall(int hallId, String name, int maxCapacity, double pricePerHour, boolean isReserved) {
+    public Hall(int hallId, String name, int maxCapacity, double pricePerHour) {
         this.hallId = hallId;
         this.name = name;
         this.maxCapacity = maxCapacity;
