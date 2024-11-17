@@ -35,7 +35,7 @@ public class ProfileJFrame extends javax.swing.JFrame {
         setJMenuBar(menuBar.getMenuBar());  // Configura el JMenuBar en el JFrame
 
         // Colocar el resto del código para el JFrame
-        System.out.println("Usuario actual: " + RoomReservation.loggedInUser.getName());
+        System.out.println("Usuario actual: " + RoomReservation.loggedInUser);
 
     }
       private JMenuItem createMenuItem(String text, Font font) {
