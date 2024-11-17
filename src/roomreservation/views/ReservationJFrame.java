@@ -9,22 +9,23 @@ package roomreservation.views;
  * @author USUARIO
  */
 
+import com.toedter.calendar.JCalendar;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
+import java.util.Date;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.border.LineBorder;
 import roomreservation.components.MenuBar;
 
 public class ReservationJFrame extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Reservar
-     */
-    
-    Color mColorFondo = new Color(18, 54, 41);
+    private JCalendar jCalendar; // Componente de calendario
+    // Color mColorFondo = new Color(18, 54, 41);
     
     public ReservationJFrame() {
         
@@ -36,9 +37,34 @@ public class ReservationJFrame extends javax.swing.JFrame {
         MenuBar menuBar = new MenuBar(this);  // Pasamos 'this' para que el menú conozca el JFrame actual
         setJMenuBar(menuBar.getMenuBar());  // Configura el JMenuBar en el JFrame
 
-        // Colocar el resto del código para el JFrame
+        // Configurar el calendario
+        initializeCalendar();
+    }
+    
+    private void initializeCalendar() {
+        // Crear el calendario
+        jCalendar = new JCalendar();
         
-
+        // Escuchar la selección de fechas
+        jCalendar.getDayChooser().addPropertyChangeListener("day", evt -> {
+            Date selectedDate = jCalendar.getDate();
+            System.out.println("Fecha seleccionada: " + selectedDate);
+        });
+        
+        // Centrar el calendario en el panel
+        jPanel1.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        gbc.anchor = GridBagConstraints.LINE_START; // Alinear horizontalmente a la izquierda
+        gbc.insets = new java.awt.Insets(0, 32, 0, 0); // Agregar margen izquierdo opcional (10 píxeles)
+        jPanel1.add(jCalendar, gbc);
+        
+        // Actualizar el panel
+        jPanel1.revalidate();
+        jPanel1.repaint();
     }
     
     @SuppressWarnings("unchecked")
