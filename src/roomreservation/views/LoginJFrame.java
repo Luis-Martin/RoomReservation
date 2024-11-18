@@ -4,8 +4,12 @@
  */
 package roomreservation.views;
 
+import roomreservation.model.User;
+import roomreservation.controller.UserController;
+
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -18,6 +22,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import java.awt.geom.RoundRectangle2D;
+import javax.swing.*;
+import java.awt.*;
+import javax.swing.border.EmptyBorder;
+import roomreservation.RoomReservation;
 
 /**
  *
@@ -30,6 +39,7 @@ public class LoginJFrame extends javax.swing.JFrame {
     private JPasswordField passwordField;
     private JLabel welcomeLabel, descriptionLabel, loginTitleLabel;
     private JButton loginButton;
+    UserController userController = new UserController();
     
     /**
      * Creates new form LoginJFrame
@@ -39,13 +49,26 @@ public class LoginJFrame extends javax.swing.JFrame {
         setTitle("Login");
 
         // creacion de ventana
-        JPanel panel = new JPanel(); 
+        JPanel panel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2d = (Graphics2D) g;
+                // Degradado de color vertical desde #E7E6E6 (arriba) hasta #D4FEE4 (abajo)
+                GradientPaint gradient = new GradientPaint(0, 0, Color.decode("#E7E6E6"), 0, getHeight(), Color.decode("#D4FEE4"));
+                g2d.setPaint(gradient);
+                g2d.fillRect(0, 0, getWidth(), getHeight());
+            }
+        }; 
         panel.setLayout(new GridBagLayout());
         GridBagConstraints constraints;
+        
+        // Establecer el color de fondo verde limón
+        panel.setBackground(new Color(0xFFFFFF));  // Usando hexadecimal
 
         // Título principal
-        welcomeLabel = new JLabel("Bienvenido a roomc");
-        welcomeLabel.setFont(new Font("Andale Mono", 1, 55));
+        welcomeLabel = new JLabel("<html>Bienvenido a <span style='color:#1D6A46;'>roomc</span></html>");
+        welcomeLabel.setFont(new Font("Andale Mono", 1, 35));
         constraints = new GridBagConstraints();
         constraints.gridx = 0;
         constraints.gridy = 0;
@@ -54,26 +77,31 @@ public class LoginJFrame extends javax.swing.JFrame {
         
         // Descripción
         descriptionLabel = new JLabel("Reserva el auditorio ideal para tu evento");
-        descriptionLabel.setFont(new Font("Andale Mono", 1, 20));
+        descriptionLabel.setFont(new Font("Andale Mono", 1, 15));
+        descriptionLabel.setForeground(Color.decode("#000000"));
+        
         constraints = new GridBagConstraints();
         constraints.gridx = 0;
         constraints.gridy = 1;
-        constraints.insets = new Insets(10, 0, 80, 0);
+        constraints.insets = new Insets(10, 0, 40, 0);
         panel.add(descriptionLabel, constraints);
         
         // Título secundario "Iniciar sesión"
         loginTitleLabel = new JLabel("Iniciar sesión");
         loginTitleLabel.setFont(new Font("Andale Mono", 1, 30));
+        loginTitleLabel.setForeground(Color.decode("#000000"));
+        loginTitleLabel.setBounds(120, 20, 200, 40); // Ajustar según diseño
+        
         constraints = new GridBagConstraints();
         constraints.gridx = 0;
         constraints.gridy = 2;
-        constraints.insets = new Insets(20, 0, 10, 0);
+        constraints.insets = new Insets(10, 0, 10, 0);
         panel.add(loginTitleLabel, constraints);
-        
+             
         // Campo de texto de correo
         emailField = new JTextField("Correo");
-        emailField.setPreferredSize(new Dimension(452, 50));
-        emailField.setFont(new Font("Andale Mono", 1, 23));
+        emailField.setPreferredSize(new Dimension(273, 38));
+        emailField.setFont(new Font("Andale Mono", 1, 13));
         emailField.setForeground(Color.GRAY); // Color inicial del placeholder
         emailField.setText("Correo");
         emailField.addFocusListener(new FocusAdapter() {
@@ -100,8 +128,8 @@ public class LoginJFrame extends javax.swing.JFrame {
 
         // Campo de contraseña
         passwordField = new JPasswordField("Contrase;a");
-        passwordField.setPreferredSize(new Dimension(452, 50));
-        passwordField.setFont(new Font("Andale Mono", 1, 23));
+        passwordField.setPreferredSize(new Dimension(273, 38));
+        passwordField.setFont(new Font("Andale Mono", 1, 13));
         passwordField.setForeground(Color.GRAY);
         passwordField.setEchoChar((char) 0); // Mostrar texto como placeholder
         passwordField.setText("Contraseña");
@@ -131,8 +159,8 @@ public class LoginJFrame extends javax.swing.JFrame {
         
         // Botón de inicio de sesión
         loginButton = new JButton("Iniciar Sesión");
-        loginButton.setPreferredSize(new Dimension(452, 50));
-        loginButton.setFont(new Font("Andale Mono", 1, 23));
+        loginButton.setPreferredSize(new Dimension(273, 38));
+        loginButton.setFont(new Font("Andale Mono", 1, 15));
         loginButton.setBackground(Color.decode("#040404"));
         loginButton.setForeground(Color.WHITE);
         constraints = new GridBagConstraints();
@@ -140,11 +168,27 @@ public class LoginJFrame extends javax.swing.JFrame {
         constraints.gridy = 5;
         constraints.insets = new Insets(20, 0, 20, 0);
         panel.add(loginButton, constraints);
+        // Agrega el ActionListener para manejar el inicio de sesión
+        loginButton.addActionListener(e -> {
+            String email = emailField.getText();
+            String password = new String(passwordField.getPassword());
+            // Verificar el usuario y la contraseña utilizando el nuevo método 'verifyLogin'
+            boolean loginSuccess = userController.verifyLogin(email, password);
+            if (loginSuccess) {
+                RoomReservation.loggedInUser = userController.getUserByEmail(email);
+                System.out.println("Usuario logueado: " + RoomReservation.loggedInUser.getName());
+                new HomeJFrame().setVisible(true);
+                dispose();
+            } else {
+                System.out.println("Login fallido");
+                JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrecta", "Error de Login", JOptionPane.ERROR_MESSAGE);
+            }
+        });
         
         // Redirección a SingUp
         JLabel signUpLabel = new JLabel("¿No tienes cuenta? Regístrate");
-        signUpLabel.setFont(new Font("Andale Mono", Font.PLAIN, 18));
-        signUpLabel.setForeground(Color.BLUE);
+        signUpLabel.setFont(new Font("Andale Mono", Font.PLAIN, 13));
+        signUpLabel.setForeground(Color.GRAY);
         signUpLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         signUpLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

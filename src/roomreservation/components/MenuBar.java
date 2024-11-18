@@ -1,0 +1,110 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package roomreservation.components;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import javax.swing.JFrame;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
+import roomreservation.views.AdministrateJFrame;
+import roomreservation.views.HistoryJFrame;
+import roomreservation.views.ProfileJFrame;
+import roomreservation.views.ReservationJFrame;
+import roomreservation.views.UserManagementJFrame;
+
+/**
+ *
+ * @author luism
+ */
+public class MenuBar {
+    private JMenuBar mbMenu;
+    private final JMenuItem mniRoomc;
+    private final JMenuItem mniHome;
+    private final JMenuItem mniReservation;
+    private final JMenuItem mniHistory;
+    private final JMenuItem mniAdministration;
+    private final JMenuItem mniProfile;
+    private final JMenuItem mniUserManagement;
+    private final JMenuItem mniExit;
+    private Color mColorFondo = new Color(18, 54, 41);
+
+    public MenuBar(JFrame parentFrame) {
+        mbMenu = new JMenuBar();
+        mbMenu.setPreferredSize(new Dimension(0, 100));
+        mbMenu.setOpaque(false);  // Para ajustar la opacidad
+        mbMenu.setBackground(mColorFondo);   
+        mbMenu.setBorder(new LineBorder(mColorFondo, 1));
+        
+        // Crear y agregar los ítems al menú
+        mniRoomc = createMenuItem("Roomc", new Font("Inter", Font.BOLD, 40));
+        mniHome = createMenuItem("Inicio", new Font("Inter", Font.PLAIN, 16));
+        mniReservation = createMenuItem("Reservar", new Font("Inter", Font.PLAIN, 16));
+        mniHistory = createMenuItem("Historial", new Font("Inter", Font.PLAIN, 16));
+        mniAdministration = createMenuItem("Administrar", new Font("Inter", Font.PLAIN, 16));
+        mniProfile = createMenuItem("Perfil", new Font("Inter", Font.PLAIN, 16));
+        mniUserManagement = createMenuItem("Gestionar Usuarios", new Font("Inter", Font.PLAIN, 16));
+        mniExit = createMenuItem("Salir", new Font("Inter", Font.PLAIN, 16));
+
+        // Agregar ítems al menú
+        mbMenu.add(mniRoomc);
+        mbMenu.add(mniHome);
+        mbMenu.add(mniReservation);
+        mbMenu.add(mniHistory);
+        mbMenu.add(mniAdministration);
+        mbMenu.add(mniProfile);
+        mbMenu.add(mniUserManagement);
+        mbMenu.add(mniExit);
+        
+        // agregar listeners
+        mniReservation.addActionListener((var e) -> {
+            new ReservationJFrame().setVisible(true); // Abre el JFrame Reservar
+            parentFrame.dispose(); // Cierra el JFrame actual
+        });
+        
+        mniHistory.addActionListener((var e) -> {
+            new HistoryJFrame().setVisible(true); // Abre el JFrame History
+            parentFrame.dispose(); // Cierra el JFrame actual
+        });
+        
+        mniAdministration.addActionListener((var e) -> {
+            new AdministrateJFrame().setVisible(true); // Abre el JFrame Adminitratrate
+            parentFrame.dispose(); // Cierra el JFrame actual
+        });
+        
+        mniProfile.addActionListener((var e) -> {
+            new ProfileJFrame().setVisible(true); // Abre el JFrame Profile
+            parentFrame.dispose(); // Cierra el JFrame actual
+        });
+        
+        mniUserManagement.addActionListener((var e) -> {
+            new UserManagementJFrame().setVisible(true); // Abre el JFrame UserManagement
+            parentFrame.dispose(); // Cierra el JFrame actual
+        });
+        
+         mniExit.addActionListener((ActionEvent e) -> {
+         System.exit(0);
+         });
+    }
+
+    private JMenuItem createMenuItem(String text, Font font) {
+        JMenuItem menuItem = new JMenuItem(text);
+        menuItem.setOpaque(true);
+        menuItem.setFont(font);
+        menuItem.setForeground(Color.white);
+        menuItem.setBackground(mColorFondo);
+        menuItem.setHorizontalAlignment(SwingConstants.CENTER);
+        return menuItem;
+    }
+
+    public JMenuBar getMenuBar() {
+        return mbMenu;
+    }
+}

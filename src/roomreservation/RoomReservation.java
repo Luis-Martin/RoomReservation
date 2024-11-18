@@ -5,6 +5,7 @@
 package roomreservation;
 
 import roomreservation.model.DBConnection;
+import roomreservation.model.User;
 import roomreservation.views.LoginJFrame;
 
 /**
@@ -12,7 +13,8 @@ import roomreservation.views.LoginJFrame;
  * @author luism
  */
 public class RoomReservation {
-
+    public static User loggedInUser;
+    
     /**
      * @param args the command line arguments
      */
