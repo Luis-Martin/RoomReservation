@@ -9,11 +9,14 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.util.Date;
+import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import roomreservation.components.MenuBar;
+import roomreservation.controller.HallController;
+import roomreservation.model.Hall;
 
 public class ReservationJFrame extends javax.swing.JFrame {
     private JCalendar jCalendar; // Componente de calendario
@@ -53,8 +56,12 @@ public class ReservationJFrame extends javax.swing.JFrame {
         // Crear un panel principal para los encabezados y la rejilla
         JPanel mainGridPanel = new JPanel();
         mainGridPanel.setLayout(new BorderLayout());
-        Integer columns = 5;
-        Integer rows = 12;
+        
+        // Obtenemos la lista de salas desde la base de datos
+        HallController hallController = new HallController();
+        List<Hall> halls = hallController.getAllHalls();
+        Integer columns = halls.size();  // Número de columnas basado en la cantidad de salas
+        Integer rows = 12;  // 12 filas para las horas de 9 AM a 9 PM
         
         // Crear un panel para los encabezados
         JPanel headerContainer = new JPanel();
@@ -73,8 +80,9 @@ public class ReservationJFrame extends javax.swing.JFrame {
         headerPanel.setLayout(new GridLayout(1, columns)); // 1 fila, 3 columnas
 
         // Añadir los nombres de las columnas
-        for (int column = 1; column <= columns; column++) {
-            JLabel headerLabel = new JLabel("Sala " + column, JLabel.CENTER);
+        for (int column = 0; column < columns; column++) {
+            String hallName = halls.get(column).getName();  // Obtener el nombre de la sala
+            JLabel headerLabel = new JLabel(hallName, JLabel.CENTER);
             headerLabel.setFont(new Font("Arial", Font.PLAIN, 15));
             headerPanel.add(headerLabel);
         }
