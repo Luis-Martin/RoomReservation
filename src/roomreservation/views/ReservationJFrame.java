@@ -1,10 +1,16 @@
 package roomreservation.views;
 
 import com.toedter.calendar.JCalendar;
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.util.Date;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import roomreservation.components.MenuBar;
 
@@ -19,7 +25,8 @@ public class ReservationJFrame extends javax.swing.JFrame {
         // Configurar el diseño del panel
         jPanel1.setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
-        
+        System.out.println("Color de fondo de jPanel1: " + jPanel1.getBackground());
+
         // Usar la clase MenuBar para agregar el JMenuBar
         MenuBar menuBar = new MenuBar(this);
         setJMenuBar(menuBar.getMenuBar());
@@ -36,21 +43,114 @@ public class ReservationJFrame extends javax.swing.JFrame {
         // Configurar las restricciones para el calendario
         constraints.gridx = 0;
         constraints.gridy = 0;
-        constraints.weightx = 0.15;
+        constraints.weightx = 0.3;
         constraints.weighty = 1.0;
         constraints.anchor = GridBagConstraints.CENTER;
         jPanel1.add(jCalendar, constraints);
         
-        // Crear un panel cuadrado para ocupar el espacio restante
-        JPanel squarePanel = new JPanel();
-        squarePanel.setBackground(Color.LIGHT_GRAY); // Fondo gris claro
+        // Crear un panel principal para los encabezados y la rejilla
+        JPanel mainGridPanel = new JPanel();
+        mainGridPanel.setLayout(new BorderLayout());
+        Integer columns = 5;
+        Integer rows = 12;
         
-        // Configurar las restricciones para el panel cuadrado
-        constraints.gridx = 1;
-        constraints.weightx = 0.85;
-        constraints.fill = GridBagConstraints.BOTH;
-        jPanel1.add(squarePanel, constraints);
+        // Crear un panel para los encabezados
+        JPanel headerContainer = new JPanel();
+        headerContainer.setLayout(new BorderLayout());
 
+        // Crear el encabezado para "Horario"
+        JPanel horaryPanel = new JPanel();
+        horaryPanel.setLayout(new BorderLayout());
+        JLabel horaryLabel = new JLabel("Horario   ", JLabel.CENTER);
+        horaryLabel.setFont(new Font("Arial", Font.PLAIN, 15));
+        horaryPanel.add(horaryLabel, BorderLayout.CENTER);
+        headerContainer.add(horaryPanel, BorderLayout.WEST);
+
+        // Crear un panel para los nombres de las salas
+        JPanel headerPanel = new JPanel();
+        headerPanel.setLayout(new GridLayout(1, columns)); // 1 fila, 3 columnas
+
+        // Añadir los nombres de las columnas
+        for (int column = 1; column <= columns; column++) {
+            JLabel headerLabel = new JLabel("Sala " + column, JLabel.CENTER);
+            headerLabel.setFont(new Font("Arial", Font.PLAIN, 15));
+            headerPanel.add(headerLabel);
+        }
+
+        // Añadir el panel de nombres de salas al contenedor
+        headerContainer.add(headerPanel, BorderLayout.CENTER);
+
+        // Añadir el contenedor completo al panel principal
+        mainGridPanel.add(headerContainer, BorderLayout.NORTH);
+
+        // Crear un panel para las horas
+        JPanel hourPanel = new JPanel();
+        hourPanel.setLayout(new GridLayout(12, 1)); // 12 filas, 1 columna
+
+        // Añadir las etiquetas de horas
+        for (int hour = 9; hour <= 20; hour++) { // Formato 24 horas
+            JLabel hourLabel = new JLabel(String.format(" %02d:00     ", hour), JLabel.CENTER);
+            hourLabel.setFont(new Font("Arial", Font.PLAIN, 15));
+            hourPanel.add(hourLabel);
+        }
+
+        // Añadir el panel de horas al lado izquierdo del panel principal
+        mainGridPanel.add(hourPanel, BorderLayout.WEST);
+        
+        // Crear el panel de rejilla horaria
+        JPanel gridPanel = new JPanel();
+        gridPanel.setLayout(new GridLayout(rows, columns, 0, 0)); // 12 filas, 3 columnas
+        
+        // Añadir las celdas a la rejilla representando cada hora de 9 AM a 9 PM
+        for (int hour = 9; hour <= 20; hour++) {
+            for (int column = 0; column < columns; column++) {
+                JPanel cell = new JPanel();
+                cell.setPreferredSize(new Dimension(120, 42));
+                cell.setBorder(BorderFactory.createLineBorder(new Color(0x7E7878)));
+
+                // Usar un booleano para rastrear si la celda está seleccionada
+                final boolean[] isSelected = {false};
+                
+                // Añadir un MouseListener a cada celda
+                final int finalHour = hour;
+                final int finalColumn = column;
+
+                cell.addMouseListener(new java.awt.event.MouseAdapter() {
+                    @Override
+                    public void mouseClicked(java.awt.event.MouseEvent evt) {
+                        // Obtener el título de la sala (Sala 1, Sala 2, ...)
+                        String roomName = "Sala " + (finalColumn + 1);
+                        // Imprimir la hora y el nombre de la sala en consola
+                        System.out.println("Hora: " + String.format("%02d:00", finalHour) + " | " + roomName);
+
+                        // Si la celda ya está seleccionada, restaurar el color original
+                        if (isSelected[0]) {
+                            cell.setBackground(new Color(214,217,223));
+                        } else {
+                            // Si la celda no está seleccionada, cambiar a color #96BFA2
+                            cell.setBackground(new Color(0x96BFA2));
+                        }
+
+                        // Cambiar el estado de selección
+                        isSelected[0] = !isSelected[0];
+                    }
+                });
+
+                gridPanel.add(cell);
+            }
+        }
+        
+        // Añadir la rejilla al panel principal
+        mainGridPanel.add(gridPanel, BorderLayout.CENTER);
+
+        // Configurar las restricciones para el panel principal
+        constraints.gridx = 1;
+        constraints.gridy = 0;
+        constraints.weightx = 0.7;
+        constraints.weighty = 1.0;
+        constraints.fill = GridBagConstraints.CENTER;
+        jPanel1.add(mainGridPanel, constraints);
+        
         // Actualizar el diseño
         jPanel1.revalidate();
         jPanel1.repaint();
