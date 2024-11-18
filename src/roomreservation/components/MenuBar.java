@@ -16,6 +16,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import roomreservation.views.AdministrateJFrame;
 import roomreservation.views.HistoryJFrame;
+import roomreservation.views.HomeJFrame;
 import roomreservation.views.ProfileJFrame;
 import roomreservation.views.ReservationJFrame;
 import roomreservation.views.UserManagementJFrame;
@@ -64,6 +65,11 @@ public class MenuBar {
         mbMenu.add(mniExit);
         
         // agregar listeners
+        mniHome.addActionListener((var e) -> {
+            new HomeJFrame().setVisible(true); // Abre el JFrame Home
+            parentFrame.dispose(); // Cierra el JFrame actual
+        });
+        
         mniReservation.addActionListener((var e) -> {
             new ReservationJFrame().setVisible(true); // Abre el JFrame Reservar
             parentFrame.dispose(); // Cierra el JFrame actual
