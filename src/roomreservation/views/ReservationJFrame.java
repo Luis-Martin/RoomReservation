@@ -1,41 +1,22 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package roomreservation.views;
 
-/**
- *
- * @author USUARIO
- */
-
 import com.toedter.calendar.JCalendar;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
 import java.util.Date;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.border.LineBorder;
 import roomreservation.components.MenuBar;
 
 public class ReservationJFrame extends javax.swing.JFrame {
     private JCalendar jCalendar; // Componente de calendario
-    // Color mColorFondo = new Color(18, 54, 41);
     
     public ReservationJFrame() {
-        
         initComponents();
         setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
         setTitle("Reservar");
         
         // Usar la clase MenuBar para agregar el JMenuBar
-        MenuBar menuBar = new MenuBar(this);  // Pasamos 'this' para que el menú conozca el JFrame actual
-        setJMenuBar(menuBar.getMenuBar());  // Configura el JMenuBar en el JFrame
+        MenuBar menuBar = new MenuBar(this);
+        setJMenuBar(menuBar.getMenuBar());
 
         // Configurar el calendario
         initializeCalendar();
@@ -103,9 +84,6 @@ public class ReservationJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -128,10 +106,6 @@ public class ReservationJFrame extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ReservationJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
