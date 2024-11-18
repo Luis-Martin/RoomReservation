@@ -10,13 +10,15 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.util.Date;
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import roomreservation.components.MenuBar;
 
 public class ReservationJFrame extends javax.swing.JFrame {
     private JCalendar jCalendar; // Componente de calendario
-    
+    private JButton reservationButton;
+            
     public ReservationJFrame() {
         initComponents();
         setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
@@ -150,6 +152,20 @@ public class ReservationJFrame extends javax.swing.JFrame {
         constraints.weighty = 1.0;
         constraints.fill = GridBagConstraints.CENTER;
         jPanel1.add(mainGridPanel, constraints);
+        
+        // Crear el botón y configurar su posición debajo del calendario
+        reservationButton = new JButton("Reservar");
+        reservationButton.setBackground(Color.BLACK);
+        reservationButton.setFont(new Font("Arial", Font.PLAIN, 15));
+        reservationButton.setForeground(Color.WHITE);
+        
+        // Configurar restricciones para el botón debajo del calendario
+        constraints.gridx = 1;
+        constraints.gridy = 1; // Posicionar debajo del calendario
+        constraints.weightx = 0.3;
+        constraints.weighty = 0.1; // Menos altura para el botón
+        constraints.anchor = GridBagConstraints.NORTH;
+        jPanel1.add(reservationButton, constraints);
         
         // Actualizar el diseño
         jPanel1.revalidate();
