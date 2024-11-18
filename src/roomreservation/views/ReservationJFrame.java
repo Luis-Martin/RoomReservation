@@ -1,9 +1,11 @@
 package roomreservation.views;
 
 import com.toedter.calendar.JCalendar;
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.Date;
+import javax.swing.JPanel;
 import roomreservation.components.MenuBar;
 
 public class ReservationJFrame extends javax.swing.JFrame {
@@ -14,15 +16,14 @@ public class ReservationJFrame extends javax.swing.JFrame {
         setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
         setTitle("Reservar");
         
+        // Configurar el diseño del panel
+        jPanel1.setLayout(new GridBagLayout());
+        GridBagConstraints constraints = new GridBagConstraints();
+        
         // Usar la clase MenuBar para agregar el JMenuBar
         MenuBar menuBar = new MenuBar(this);
         setJMenuBar(menuBar.getMenuBar());
-
-        // Configurar el calendario
-        initializeCalendar();
-    }
-    
-    private void initializeCalendar() {
+        
         // Crear el calendario
         jCalendar = new JCalendar();
         
@@ -32,18 +33,25 @@ public class ReservationJFrame extends javax.swing.JFrame {
             System.out.println("Fecha seleccionada: " + selectedDate);
         });
         
-        // Centrar el calendario en el panel
-        jPanel1.setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.weightx = 1.0;
-        gbc.weighty = 1.0;
-        gbc.anchor = GridBagConstraints.LINE_START; // Alinear horizontalmente a la izquierda
-        gbc.insets = new java.awt.Insets(0, 32, 0, 0); // Agregar margen izquierdo opcional (10 píxeles)
-        jPanel1.add(jCalendar, gbc);
+        // Configurar las restricciones para el calendario
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        constraints.weightx = 0.15;
+        constraints.weighty = 1.0;
+        constraints.anchor = GridBagConstraints.CENTER;
+        jPanel1.add(jCalendar, constraints);
         
-        // Actualizar el panel
+        // Crear un panel cuadrado para ocupar el espacio restante
+        JPanel squarePanel = new JPanel();
+        squarePanel.setBackground(Color.LIGHT_GRAY); // Fondo gris claro
+        
+        // Configurar las restricciones para el panel cuadrado
+        constraints.gridx = 1;
+        constraints.weightx = 0.85;
+        constraints.fill = GridBagConstraints.BOTH;
+        jPanel1.add(squarePanel, constraints);
+
+        // Actualizar el diseño
         jPanel1.revalidate();
         jPanel1.repaint();
     }
@@ -109,7 +117,7 @@ public class ReservationJFrame extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+            public void run() { 
                 new ReservationJFrame().setVisible(true);
             }
         });
