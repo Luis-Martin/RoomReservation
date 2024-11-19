@@ -14,7 +14,6 @@ public class Reservation {
     private int reservationId; // Equivalente a reserva_id
     private int userId; // Equivalente a usuario_id
     private int hallId; // Equivalente a auditorio_id
-    private Date reservationDate; // Equivalente a fecha_reserva
     private Date startTime; // Equivalente a hora_inicio
     private Date endTime; // Equivalente a hora_fin
     private Date creationDate; // Equivalente a fecha_creacion
@@ -24,16 +23,23 @@ public class Reservation {
     }
 
     // Constructor con parámetros
-    public Reservation(int reservationId, int userId, int hallId, Date reservationDate, Date startTime, Date endTime, Date creationDate) {
+    public Reservation(int reservationId, int userId, int hallId, Date startTime, Date endTime, Date creationDate) {
         this.reservationId = reservationId;
         this.userId = userId;
         this.hallId = hallId;
-        this.reservationDate = reservationDate;
         this.startTime = startTime;
         this.endTime = endTime;
         this.creationDate = creationDate;
     }
 
+    public Reservation(int userId, int hallId, Date reservationDate, Date startTime, Date endTime, Date creationDate) {
+        this.userId = userId;
+        this.hallId = hallId;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.creationDate = creationDate;
+    }
+    
     // Getters y Setters
     public int getReservationId() {
         return reservationId;
@@ -54,13 +60,6 @@ public class Reservation {
     }
     public void setHallId(int hallId) {
         this.hallId = hallId;
-    }
-
-    public Date getReservationDate() {
-        return reservationDate;
-    }
-    public void setReservationDate(Date reservationDate) {
-        this.reservationDate = reservationDate;
     }
 
     public Date getStartTime() {
@@ -91,7 +90,6 @@ public class Reservation {
                 "reservationId=" + reservationId +
                 ", userId=" + userId +
                 ", hallId=" + hallId +
-                ", reservationDate=" + reservationDate +
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
                 ", creationDate=" + creationDate +

@@ -20,12 +20,11 @@ public class ReservationController {
 
     // Crear reserva
     public boolean createReservation(Reservation reservation) {
-        String query = "INSERT INTO Reserva (usuario_id, auditorio_id, fecha_reserva, hora_inicio, hora_fin, fecha_creacion) " +
+        String query = "INSERT INTO Reserva (usuario_id, auditorio_id, fecha_inicio, fecha_fin, fecha_creacion) " +
                        "VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, reservation.getUserId());
             stmt.setInt(2, reservation.getHallId());
-            stmt.setDate(3, new java.sql.Date(reservation.getReservationDate().getTime()));
             stmt.setTime(4, new java.sql.Time(reservation.getStartTime().getTime()));
             stmt.setTime(5, new java.sql.Time(reservation.getEndTime().getTime()));
             stmt.setDate(6, new java.sql.Date(reservation.getCreationDate().getTime()));
@@ -48,9 +47,8 @@ public class ReservationController {
                         rs.getInt("reserva_id"),
                         rs.getInt("usuario_id"),
                         rs.getInt("auditorio_id"),
-                        rs.getDate("fecha_reserva"),
-                        rs.getTime("hora_inicio"),
-                        rs.getTime("hora_fin"),
+                        rs.getTime("fecha_inicio"),
+                        rs.getTime("fecha_fin"),
                         rs.getDate("fecha_creacion")
                 );
             }
@@ -71,9 +69,8 @@ public class ReservationController {
                         rs.getInt("reserva_id"),
                         rs.getInt("usuario_id"),
                         rs.getInt("auditorio_id"),
-                        rs.getDate("fecha_reserva"),
-                        rs.getTime("hora_inicio"),
-                        rs.getTime("hora_fin"),
+                        rs.getTime("fecha_inicio"),
+                        rs.getTime("fecha_fin"),
                         rs.getDate("fecha_creacion")
                 ));
             }
@@ -85,12 +82,11 @@ public class ReservationController {
 
     // Actualizar reserva
     public boolean updateReservation(Reservation reservation) {
-        String query = "UPDATE Reserva SET usuario_id = ?, auditorio_id = ?, fecha_reserva = ?, " +
-                       "hora_inicio = ?, hora_fin = ?, fecha_creacion = ? WHERE reserva_id = ?";
+        String query = "UPDATE Reserva SET usuario_id = ?, auditorio_id = ?, " +
+                       "fecha_inicio = ?, fecha_fin = ?, fecha_creacion = ? WHERE reserva_id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, reservation.getUserId());
             stmt.setInt(2, reservation.getHallId());
-            stmt.setDate(3, new java.sql.Date(reservation.getReservationDate().getTime()));
             stmt.setTime(4, new java.sql.Time(reservation.getStartTime().getTime()));
             stmt.setTime(5, new java.sql.Time(reservation.getEndTime().getTime()));
             stmt.setDate(6, new java.sql.Date(reservation.getCreationDate().getTime()));
