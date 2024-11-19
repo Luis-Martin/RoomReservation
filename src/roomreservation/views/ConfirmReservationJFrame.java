@@ -11,18 +11,22 @@ import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import roomreservation.RoomReservation;
 import roomreservation.components.MenuBar;
 import roomreservation.controller.HallController;
+import roomreservation.controller.ReservationController;
 import roomreservation.model.Hall;
+import roomreservation.model.Reservation;
 
 public class ConfirmReservationJFrame extends javax.swing.JFrame {
     
-    public ConfirmReservationJFrame(Date selectedDate, String selectedHallName, String selectedHour) {
+    public ConfirmReservationJFrame(Date startDate, String selectedHallName) {
         initComponents();
         setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
         setTitle("Confirmar Reserva");
@@ -35,20 +39,27 @@ public class ConfirmReservationJFrame extends javax.swing.JFrame {
         MenuBar menuBar = new MenuBar(this);
         setJMenuBar(menuBar.getMenuBar());
         
-        // Formatear la fecha para mostrar solo el día
-        SimpleDateFormat dayFormat = new SimpleDateFormat("dd-MM-YY");
-        String formattedDay = dayFormat.format(selectedDate);
-        
         HallController hallController = new HallController();
         Hall selectedHall = hallController.getHallByName(selectedHallName);
+        
+        // Usar Calendar para agregar 1 hora
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(startDate); // Configurar la fecha base
+        calendar.add(Calendar.HOUR_OF_DAY, 1); // Sumar 1 hora
 
-        // Convertir selectedHour ("01:00") a LocalTime
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-        LocalTime time = LocalTime.parse(selectedHour, formatter);
-         // Sumar 1 hora
-        LocalTime endTime = time.plusHours(1);
-        // Formatear la nueva hora a "HH:mm"
-        String formattedEndTime = endTime.format(formatter);
+        // Obtener la nueva fecha/hora como Date
+        Date endDate = calendar.getTime();
+        
+        // Formatear la fecha al formato a mostrar
+        SimpleDateFormat dayFormat = new SimpleDateFormat("dd-MM-yy");
+        String formattedDay = dayFormat.format(startDate);
+        
+        // Formatear las horas en el formato HH:mm
+        SimpleDateFormat hourFormat = new SimpleDateFormat("HH:mm");
+
+        // Extraer y formatear la hora de startDate y endDate
+        String formattedStartTime = hourFormat.format(startDate);
+        String formattedEndTime = hourFormat.format(endDate);
         
         // COLUMNA 1
         
@@ -136,7 +147,7 @@ public class ConfirmReservationJFrame extends javax.swing.JFrame {
         startHourField.setPreferredSize(new Dimension(273, 38));
         startHourField.setFont(new Font("Andale Mono", Font.PLAIN, 15));
         startHourField.setForeground(Color.GRAY);
-        startHourField.setText(selectedHour);
+        startHourField.setText(formattedStartTime);
         startHourField.setEditable(false); // Hacer el campo no editable
         constraints = new GridBagConstraints();
         constraints.gridx = 1;
@@ -248,23 +259,36 @@ public class ConfirmReservationJFrame extends javax.swing.JFrame {
         constraints.gridy = 7;  // Colócalo en la fila 7 (justo debajo de las demás celdas)
         constraints.gridwidth = 2;  // Ocupa las dos columnas
         constraints.anchor = GridBagConstraints.CENTER;  // Centrado en la ventana
-
+        
         // Añadir el ActionListener para el botón
         confirmButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Imprimir los valores en consola
-                System.out.println(formattedDay);
-                System.out.println(selectedHour);
-                System.out.println(formattedEndTime);
-                System.out.println(RoomReservation.loggedInUser);
-                System.out.println(selectedHall);
+                int userId = RoomReservation.loggedInUser.getUserId(); // Obtener el ID del usuario
+                int hallId = selectedHall.getHallId(); // Obtener el ID de la sala
+                Date creationDate = new Date(System.currentTimeMillis()); // Fecha de creación de la reserva (usa java.util.Date)
+
+                // Crear el objeto de reserva con los datos recogidos
+                Reservation reservation = new Reservation(userId, hallId, startDate, endDate, creationDate);
+
+                // Crear la reserva llamando al método del controlador
+                ReservationController reservationController = new ReservationController();
+                boolean isCreated = reservationController.createReservation(reservation);
+
+                // Comprobar si la reserva se creó correctamente
+                if (isCreated) {
+                    JOptionPane.showMessageDialog(null, "Reserva creada con éxito!", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    new HomeJFrame().setVisible(true); // Abre el JFrame Home
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al crear la reserva. Intente nuevamente.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
             }
         });
-
+        
         // Añadir el botón al layout
         add(confirmButton, constraints);
-        
         revalidate();
         repaint();
     }
