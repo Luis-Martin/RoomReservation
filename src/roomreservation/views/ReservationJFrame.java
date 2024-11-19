@@ -21,7 +21,12 @@ import roomreservation.model.Hall;
 public class ReservationJFrame extends javax.swing.JFrame {
     private JCalendar jCalendar; // Componente de calendario
     private JButton reservationButton;
-            
+    
+    // Variables globales para almacenar la selección del usuario
+    private Date selectedDate;   // Fecha seleccionada
+    private String selectedHall; // Sala seleccionada
+    private String selectedHour; // Hora seleccionada
+    
     public ReservationJFrame() {
         initComponents();
         setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
@@ -30,7 +35,6 @@ public class ReservationJFrame extends javax.swing.JFrame {
         // Configurar el diseño del panel
         jPanel1.setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
-        System.out.println("Color de fondo de jPanel1: " + jPanel1.getBackground());
 
         // Usar la clase MenuBar para agregar el JMenuBar
         MenuBar menuBar = new MenuBar(this);
@@ -41,8 +45,7 @@ public class ReservationJFrame extends javax.swing.JFrame {
         
         // Escuchar la selección de fechas
         jCalendar.getDayChooser().addPropertyChangeListener("day", evt -> {
-            Date selectedDate = jCalendar.getDate();
-            System.out.println("Fecha seleccionada: " + selectedDate);
+            selectedDate = jCalendar.getDate();
         });
         
         // Configurar las restricciones para el calendario
@@ -120,28 +123,17 @@ public class ReservationJFrame extends javax.swing.JFrame {
 
                 // Usar un booleano para rastrear si la celda está seleccionada
                 final boolean[] isSelected = {false};
-                
-                // Añadir un MouseListener a cada celda
                 final int finalHour = hour;
-                final int finalColumn = column;
+                final String hallName = halls.get(column).getName();
 
                 cell.addMouseListener(new java.awt.event.MouseAdapter() {
                     @Override
                     public void mouseClicked(java.awt.event.MouseEvent evt) {
-                        // Obtener el título de la sala (Sala 1, Sala 2, ...)
-                        String roomName = "Sala " + (finalColumn + 1);
-                        // Imprimir la hora y el nombre de la sala en consola
-                        System.out.println("Hora: " + String.format("%02d:00", finalHour) + " | " + roomName);
+                        selectedHall = hallName;
+                        selectedHour = String.format("%02d:00", finalHour);
 
-                        // Si la celda ya está seleccionada, restaurar el color original
-                        if (isSelected[0]) {
-                            cell.setBackground(new Color(214,217,223));
-                        } else {
-                            // Si la celda no está seleccionada, cambiar a color #96BFA2
-                            cell.setBackground(new Color(0x96BFA2));
-                        }
-
-                        // Cambiar el estado de selección
+                        // Alternar selección visual
+                        cell.setBackground(isSelected[0] ? new Color(214, 217, 223) : new Color(0x96BFA2));
                         isSelected[0] = !isSelected[0];
                     }
                 });
@@ -166,6 +158,12 @@ public class ReservationJFrame extends javax.swing.JFrame {
         reservationButton.setBackground(Color.BLACK);
         reservationButton.setFont(new Font("Arial", Font.PLAIN, 15));
         reservationButton.setForeground(Color.WHITE);
+        
+        // Acción al presionar el botón
+        reservationButton.addActionListener(e -> {
+            new ConfirmReservationJFrame(selectedDate, selectedHall, selectedHour).setVisible(true); // Abre el JFrame para Confirmar Reserva
+            dispose(); // Cierra el JFrame actual
+        });
         
         // Configurar restricciones para el botón debajo del calendario
         constraints.gridx = 1;
