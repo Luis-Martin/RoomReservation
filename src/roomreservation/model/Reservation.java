@@ -32,11 +32,11 @@ public class Reservation {
         this.creationDate = creationDate;
     }
 
-    public Reservation(int userId, int hallId, Date reservationDate, Date startTime, Date endTime, Date creationDate) {
+    public Reservation(int userId, int hallId, Date startDate, Date endDate, Date creationDate) {
         this.userId = userId;
         this.hallId = hallId;
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startTime = startDate;
+        this.endTime = endDate;
         this.creationDate = creationDate;
     }
     
@@ -62,17 +62,17 @@ public class Reservation {
         this.hallId = hallId;
     }
 
-    public Date getStartTime() {
+    public Date getStartDate() {
         return startTime;
     }
-    public void setStartTime(Date startTime) {
+    public void setStartDate(Date startTime) {
         this.startTime = startTime;
     }
 
-    public Date getEndTime() {
+    public Date getEndDate() {
         return endTime;
     }
-    public void setEndTime(Date endTime) {
+    public void setEndDate(Date endTime) {
         this.endTime = endTime;
     }
 
