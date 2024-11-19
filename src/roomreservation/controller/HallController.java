@@ -57,6 +57,26 @@ public class HallController {
         return null;
     }
 
+    // Obtener sala por nombre
+    public Hall getHallByName(String hallName) {
+        String query = "SELECT * FROM Auditorio WHERE nombre = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, hallName);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return new Hall(
+                        rs.getInt("auditorio_id"),
+                        rs.getString("nombre"),
+                        rs.getInt("capacidad_max"),
+                        rs.getDouble("precio_hora")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
     // Leer todas las salas
     public List<Hall> getAllHalls() {
         List<Hall> halls = new ArrayList<>();
