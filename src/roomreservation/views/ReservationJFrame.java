@@ -161,7 +161,32 @@ public class ReservationJFrame extends javax.swing.JFrame {
         
         // Acción al presionar el botón
         reservationButton.addActionListener(e -> {
-            new ConfirmReservationJFrame(selectedDate, selectedHall, selectedHour).setVisible(true); // Abre el JFrame para Confirmar Reserva
+            if (selectedDate == null || selectedHour == null || selectedHall == null) {
+                // Mostrar un mensaje de advertencia si faltan datos
+                javax.swing.JOptionPane.showMessageDialog(
+                        this,
+                        "Por favor, seleccione una fecha, una sala y una hora.",
+                        "Advertencia",
+                        javax.swing.JOptionPane.WARNING_MESSAGE
+                );
+                return;
+            }
+            // Combinar fecha y hora seleccionadas
+            java.util.Calendar calendar = java.util.Calendar.getInstance();
+            calendar.setTime(selectedDate);
+
+            // Extraer la hora seleccionada (en formato "HH:00") y ajustar en el calendario
+            int hour = Integer.parseInt(selectedHour.split(":")[0]); // Extrae la hora como entero
+            calendar.set(java.util.Calendar.HOUR_OF_DAY, hour);
+            calendar.set(java.util.Calendar.MINUTE, 0);
+            calendar.set(java.util.Calendar.SECOND, 0);
+
+            // Crear un objeto Date que contiene la fecha completa con hora
+            Date combinedDateTime = calendar.getTime();
+            
+            System.out.println(combinedDateTime);
+            // Abre el JFrame para Confirmar Reserva con la fecha combinada
+            new ConfirmReservationJFrame(combinedDateTime, selectedHall).setVisible(true);
             dispose(); // Cierra el JFrame actual
         });
         
