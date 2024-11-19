@@ -22,11 +22,6 @@ public class ReservationController {
     public boolean createReservation(Reservation reservation) {
         String query = "INSERT INTO Reserva (usuario_id, auditorio_id, fecha_inicio, fecha_fin, fecha_creacion) " +
                        "VALUES (?, ?, ?, ?, ?)";
-        
-        System.out.println(new java.sql.Timestamp(reservation.getStartDate().getTime()));
-        System.out.println(new java.sql.Timestamp(reservation.getEndDate().getTime()));
-        System.out.println(new java.sql.Timestamp(reservation.getCreationDate().getTime()));
-            
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, reservation.getUserId());
             stmt.setInt(2, reservation.getHallId());
