@@ -1,12 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package roomreservation.components;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
@@ -21,10 +16,6 @@ import roomreservation.views.ProfileJFrame;
 import roomreservation.views.ReservationJFrame;
 import roomreservation.views.UserManagementJFrame;
 
-/**
- *
- * @author luism
- */
 public class MenuBar {
     private JMenuBar mbMenu;
     private final JMenuItem mniRoomc;
