@@ -1,8 +1,6 @@
 package roomreservation.views;
 
 import java.awt.Color;
-import java.awt.Font;
-import javax.swing.JMenuItem;
 import roomreservation.components.MenuBar;
 
 public class HomeJFrame extends javax.swing.JFrame {
@@ -22,16 +20,6 @@ public class HomeJFrame extends javax.swing.JFrame {
         // COLOCAR EL RESTO DEL CÓDIGO PARA EL FRAME
 
     }
-      private JMenuItem createMenuItem(String text, Font font) {
-        JMenuItem menuItem = new JMenuItem(text);
-        menuItem.setOpaque(true);
-        menuItem.setFont(font);
-        menuItem.setForeground(Color.white);
-        menuItem.setBackground(mColorFondo);
-        
-        return menuItem;
-    }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
