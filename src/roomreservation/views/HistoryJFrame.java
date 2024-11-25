@@ -1,29 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package roomreservation.views;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.border.LineBorder;
 import roomreservation.components.MenuBar;
 
-/**
- *
- * @author USUARIO
- */
-
-
 public class HistoryJFrame extends javax.swing.JFrame {
-
-    /**
-     * Creates new form VerMisReservas
-     */
     
     Color mColorFondo = new Color(18, 54, 41);
     
