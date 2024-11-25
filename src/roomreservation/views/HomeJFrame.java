@@ -1,21 +1,69 @@
 package roomreservation.views;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import roomreservation.components.MenuBar;
 
 public class HomeJFrame extends javax.swing.JFrame {    
     public HomeJFrame() {
-        initComponents();  
-        
+        initComponents();
+
         setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
         setTitle("Inicio");
-        
-        // Usar la clase MenuBar para agregar el JMenuBar
-        MenuBar menuBar = new MenuBar(this);  // Pasamos 'this' para que el menú conozca el JFrame actual
-        setJMenuBar(menuBar.getMenuBar());  // Configura el JMenuBar en el JFrame
-        
-        // COLOCAR EL RESTO DEL CÓDIGO PARA EL FRAME
 
+        // Usar la clase MenuBar para agregar el JMenuBar
+        MenuBar menuBar = new MenuBar(this);
+        setJMenuBar(menuBar.getMenuBar());
+
+        // Crear el panel principal con GridBagLayout
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridBagLayout());
+        GridBagConstraints constraints = new GridBagConstraints();
+
+        // Crear un JLabel para el texto
+        JLabel textLabel1 = new JLabel(""
+                + "<html>"
+                + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RESERVA TU AUDITORIO IDEAL<br />"
+                + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PARA TU EVENTO<br />"
+                + "<p style='font-size:16px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Explora nuestras opciones y asegura el espacio perfecto para tus necesidades</p>"
+                + "</html>");
+        textLabel1.setFont(new Font("Inter", Font.PLAIN, 32));
+        textLabel1.setForeground(Color.WHITE); // Color del texto (blanco)
+        textLabel1.setHorizontalAlignment(SwingConstants.LEFT);
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        panel.add(textLabel1, constraints);
+
+        // Crear el JLabel de fondo con imagen
+        JLabel backgroundLabel = new JLabel();
+        ImageIcon originalImage = new ImageIcon(getClass().getResource("/Images/fondo.png"));
+        Image scaledImage = originalImage.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH);
+        backgroundLabel.setIcon(new ImageIcon(scaledImage));
+        backgroundLabel.setLayout(new BorderLayout());
+
+        // Agregar el texto sobre la imagen
+        backgroundLabel.add(textLabel1, BorderLayout.CENTER);
+        panel.add(backgroundLabel, constraints);
+
+        // Configuración del panel
+        setContentPane(panel);
+
+        // Redimensionar la imagen de fondo cuando la ventana cambia de tamaño
+        this.addComponentListener(new java.awt.event.ComponentAdapter() {
+            @Override
+            public void componentResized(java.awt.event.ComponentEvent e) {
+                Image resizedImage = originalImage.getImage().getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH);
+                backgroundLabel.setIcon(new ImageIcon(resizedImage));
+            }
+        });
     }
 
     /**
