@@ -3,10 +3,7 @@ package roomreservation.views;
 import java.awt.Color;
 import roomreservation.components.MenuBar;
 
-public class HomeJFrame extends javax.swing.JFrame {
-    
-    Color mColorFondo = new Color(18, 54, 41);
-    
+public class HomeJFrame extends javax.swing.JFrame {    
     public HomeJFrame() {
         initComponents();  
         
