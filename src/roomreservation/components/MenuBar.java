@@ -37,13 +37,13 @@ public class MenuBar {
         
         // Crear y agregar los ítems al menú
         mniRoomc = createMenuItem("Roomc", new Font("Inter", Font.BOLD, 40));
-        mniHome = createMenuItem("Inicio", new Font("Inter", Font.PLAIN, 16));
-        mniReservation = createMenuItem("Reservar", new Font("Inter", Font.PLAIN, 16));
-        mniHistory = createMenuItem("Historial", new Font("Inter", Font.PLAIN, 16));
-        mniAdministration = createMenuItem("Administrar", new Font("Inter", Font.PLAIN, 16));
-        mniProfile = createMenuItem("Perfil", new Font("Inter", Font.PLAIN, 16));
-        mniUserManagement = createMenuItem("Gestionar Usuarios", new Font("Inter", Font.PLAIN, 16));
-        mniExit = createMenuItem("Salir", new Font("Inter", Font.PLAIN, 16));
+        mniHome = createMenuItem("Inicio", new Font("Inter", Font.PLAIN, 18));
+        mniReservation = createMenuItem("Reservar", new Font("Inter", Font.PLAIN, 18));
+        mniHistory = createMenuItem("Historial", new Font("Inter", Font.PLAIN, 18));
+        mniAdministration = createMenuItem("Administrar", new Font("Inter", Font.PLAIN, 18));
+        mniProfile = createMenuItem("Perfil", new Font("Inter", Font.PLAIN, 18));
+        mniUserManagement = createMenuItem("Gestionar Usuarios", new Font("Inter", Font.PLAIN, 18));
+        mniExit = createMenuItem("Salir", new Font("Inter", Font.PLAIN, 18));
 
         // Agregar ítems al menú
         mbMenu.add(mniRoomc);
