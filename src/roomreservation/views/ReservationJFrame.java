@@ -20,9 +20,7 @@ import roomreservation.model.Hall;
 
 public class ReservationJFrame extends javax.swing.JFrame {
     private JCalendar jCalendar; // Componente de calendario
-    private JButton reservationButton;
-    
-    // Variables globales para almacenar la selección del usuario
+    private JButton reservationButton; // Boton para realizar reserva
     private Date selectedDate;   // Fecha seleccionada
     private String selectedHall; // Sala seleccionada
     private String selectedHour; // Hora seleccionada
@@ -40,13 +38,22 @@ public class ReservationJFrame extends javax.swing.JFrame {
         MenuBar menuBar = new MenuBar(this);
         setJMenuBar(menuBar.getMenuBar());
         
+        /*****
+        DATOS DE LA BBDD
+        *****/
+        
+        // Obtenemos la lista de salas desde la base de datos
+        HallController hallController = new HallController();
+        List<Hall> halls = hallController.getAllHalls();
+        Integer columns = halls.size();  // Número de columnas basado en la cantidad de salas
+        Integer rows = 12;  // 12 filas para las horas de 9 AM a 9 PM
+        
+        /*****
+        CALENDARIO
+        *****/
+        
         // Crear el calendario
         jCalendar = new JCalendar();
-        
-        // Escuchar la selección de fechas
-        jCalendar.getDayChooser().addPropertyChangeListener("day", evt -> {
-            selectedDate = jCalendar.getDate();
-        });
         
         // Configurar las restricciones para el calendario
         constraints.gridx = 0;
@@ -56,19 +63,25 @@ public class ReservationJFrame extends javax.swing.JFrame {
         constraints.anchor = GridBagConstraints.CENTER;
         jPanel1.add(jCalendar, constraints);
         
+        /*****
+        HORARIOS
+        *****/
+        
         // Crear un panel principal para los encabezados y la rejilla
         JPanel mainGridPanel = new JPanel();
         mainGridPanel.setLayout(new BorderLayout());
         
-        // Obtenemos la lista de salas desde la base de datos
-        HallController hallController = new HallController();
-        List<Hall> halls = hallController.getAllHalls();
-        Integer columns = halls.size();  // Número de columnas basado en la cantidad de salas
-        Integer rows = 12;  // 12 filas para las horas de 9 AM a 9 PM
-        
         // Crear un panel para los encabezados
         JPanel headerContainer = new JPanel();
         headerContainer.setLayout(new BorderLayout());
+        
+        // Crear un panel para las horas
+        JPanel hourPanel = new JPanel();
+        hourPanel.setLayout(new GridLayout(12, 1)); // 12 filas, 1 columna
+        
+        /*****
+        HORARIOS: CABECERA
+        *****/
 
         // Crear el encabezado para "Horario"
         JPanel horaryPanel = new JPanel();
@@ -95,10 +108,10 @@ public class ReservationJFrame extends javax.swing.JFrame {
 
         // Añadir el contenedor completo al panel principal
         mainGridPanel.add(headerContainer, BorderLayout.NORTH);
-
-        // Crear un panel para las horas
-        JPanel hourPanel = new JPanel();
-        hourPanel.setLayout(new GridLayout(12, 1)); // 12 filas, 1 columna
+        
+        /*****
+        HORARIOS: HORAS Y REJILLA
+        *****/
 
         // Añadir las etiquetas de horas
         for (int hour = 9; hour <= 20; hour++) { // Formato 24 horas
@@ -115,32 +128,7 @@ public class ReservationJFrame extends javax.swing.JFrame {
         gridPanel.setLayout(new GridLayout(rows, columns, 0, 0)); // 12 filas, 3 columnas
         
         // Añadir las celdas a la rejilla representando cada hora de 9 AM a 9 PM
-        for (int hour = 9; hour <= 20; hour++) {
-            for (int column = 0; column < columns; column++) {
-                JPanel cell = new JPanel();
-                cell.setPreferredSize(new Dimension(120, 42));
-                cell.setBorder(BorderFactory.createLineBorder(new Color(0x7E7878)));
-
-                // Usar un booleano para rastrear si la celda está seleccionada
-                final boolean[] isSelected = {false};
-                final int finalHour = hour;
-                final String hallName = halls.get(column).getName();
-
-                cell.addMouseListener(new java.awt.event.MouseAdapter() {
-                    @Override
-                    public void mouseClicked(java.awt.event.MouseEvent evt) {
-                        selectedHall = hallName;
-                        selectedHour = String.format("%02d:00", finalHour);
-
-                        // Alternar selección visual
-                        cell.setBackground(isSelected[0] ? new Color(214, 217, 223) : new Color(0x96BFA2));
-                        isSelected[0] = !isSelected[0];
-                    }
-                });
-
-                gridPanel.add(cell);
-            }
-        }
+        renderGrid(columns, halls,gridPanel);
         
         // Añadir la rejilla al panel principal
         mainGridPanel.add(gridPanel, BorderLayout.CENTER);
@@ -153,13 +141,26 @@ public class ReservationJFrame extends javax.swing.JFrame {
         constraints.fill = GridBagConstraints.CENTER;
         jPanel1.add(mainGridPanel, constraints);
         
+        /*****
+        CALENDARIO: LISTENER
+        *****/
+        
+        // Escuchar la selección de fechas
+        jCalendar.getDayChooser().addPropertyChangeListener("day", evt -> {
+            selectedDate = jCalendar.getDate();
+        });
+        
+        /*****
+        BOTÓN
+        *****/
+        
         // Crear el botón y configurar su posición debajo del calendario
         reservationButton = new JButton("Reservar");
         reservationButton.setBackground(Color.BLACK);
         reservationButton.setFont(new Font("Arial", Font.PLAIN, 15));
         reservationButton.setForeground(Color.WHITE);
         
-        // Acción al presionar el botón
+        // Acción al presionar el botón reservar
         reservationButton.addActionListener(e -> {
             if (selectedDate == null || selectedHour == null || selectedHall == null) {
                 // Mostrar un mensaje de advertencia si faltan datos
@@ -201,6 +202,39 @@ public class ReservationJFrame extends javax.swing.JFrame {
         // Actualizar el diseño
         jPanel1.revalidate();
         jPanel1.repaint();
+    }
+    
+    private void renderGrid(Integer columns, List<Hall> halls, JPanel gridPanel) {
+        // Limpiar el contenido actual del mainGridPanel
+        gridPanel.removeAll();
+        
+        // Añadir las celdas a la rejilla representando cada hora de 9 AM a 9 PM
+        for (int hour = 9; hour <= 20; hour++) {
+            for (int column = 0; column < columns; column++) {
+                JPanel cell = new JPanel();
+                cell.setPreferredSize(new Dimension(120, 42));
+                cell.setBorder(BorderFactory.createLineBorder(new Color(0x7E7878)));
+
+                // Usar un booleano para rastrear si la celda está seleccionada
+                final boolean[] isSelected = {false};
+                final int finalHour = hour;
+                final String hallName = halls.get(column).getName();
+
+                cell.addMouseListener(new java.awt.event.MouseAdapter() {
+                    @Override
+                    public void mouseClicked(java.awt.event.MouseEvent evt) {
+                        selectedHall = hallName;
+                        selectedHour = String.format("%02d:00", finalHour);
+
+                        // Alternar selección visual
+                        cell.setBackground(isSelected[0] ? new Color(214, 217, 223) : new Color(0x96BFA2));
+                        isSelected[0] = !isSelected[0];
+                    }
+                });
+
+                gridPanel.add(cell);
+            }
+        }
     }
     
     @SuppressWarnings("unchecked")
