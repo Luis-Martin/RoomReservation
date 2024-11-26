@@ -8,15 +8,20 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import roomreservation.components.MenuBar;
 import roomreservation.controller.HallController;
+import roomreservation.controller.ReservationController;
 import roomreservation.model.Hall;
+import roomreservation.model.Reservation;
 
 public class ReservationJFrame extends javax.swing.JFrame {
     private JCalendar jCalendar; // Componente de calendario
@@ -47,6 +52,15 @@ public class ReservationJFrame extends javax.swing.JFrame {
         List<Hall> halls = hallController.getAllHalls();
         Integer columns = halls.size();  // Número de columnas basado en la cantidad de salas
         Integer rows = 12;  // 12 filas para las horas de 9 AM a 9 PM
+        
+        // Crear el objeto dinámico para las salas
+        Map<String, int[]> reservationStatus = new HashMap<>();
+
+        // Inicializar el estado de reservas dinámicamente
+        for (Hall hall : halls) {
+            String hallName = hall.getName(); // Obtener el nombre de la sala
+            reservationStatus.put(hallName, new int[12]); // Inicializar con 12 valores de 0   
+        }
         
         /*****
         CALENDARIO
@@ -128,7 +142,33 @@ public class ReservationJFrame extends javax.swing.JFrame {
         gridPanel.setLayout(new GridLayout(rows, columns, 0, 0)); // 12 filas, 3 columnas
         
         // Añadir las celdas a la rejilla representando cada hora de 9 AM a 9 PM
-        renderGrid(columns, halls,gridPanel);
+        // renderGrid(columns, halls,gridPanel);
+        for (int hour = 9; hour <= 20; hour++) {
+            for (int column = 0; column < columns; column++) {
+                JPanel cell = new JPanel();
+                cell.setPreferredSize(new Dimension(120, 42));
+                cell.setBorder(BorderFactory.createLineBorder(new Color(0x7E7878)));
+
+                // Usar un booleano para rastrear si la celda está seleccionada
+                final boolean[] isSelected = {false};
+                final int finalHour = hour;
+                final String hallName = halls.get(column).getName();
+
+                cell.addMouseListener(new java.awt.event.MouseAdapter() {
+                    @Override
+                    public void mouseClicked(java.awt.event.MouseEvent evt) {
+                        selectedHall = hallName;
+                        selectedHour = String.format("%02d:00", finalHour);
+
+                        // Alternar selección visual
+                        cell.setBackground(isSelected[0] ? new Color(214, 217, 223) : new Color(0x96BFA2));
+                        isSelected[0] = !isSelected[0];
+                    }
+                });
+
+                gridPanel.add(cell);
+            }
+        }
         
         // Añadir la rejilla al panel principal
         mainGridPanel.add(gridPanel, BorderLayout.CENTER);
@@ -148,6 +188,36 @@ public class ReservationJFrame extends javax.swing.JFrame {
         // Escuchar la selección de fechas
         jCalendar.getDayChooser().addPropertyChangeListener("day", evt -> {
             selectedDate = jCalendar.getDate();
+            resetStatus(reservationStatus); // Limpia el estado actual
+            ReservationController reservationController = new ReservationController();
+            List<Reservation> reservationsByDay = reservationController.getAllReservationsByDay(selectedDate);
+
+            System.out.println(reservationsByDay);
+            // Calendar calendar = Calendar.getInstance();
+            
+            // Actualizar el estado de las reservas
+            for (Reservation reservation : reservationsByDay) {
+                int hallId = reservation.getHallId(); // Identifica la sala
+                Hall hall = hallController.getHallById(hallId);
+                Date startTime = reservation.getStartDate();
+                
+                // Convierte las horas de inicio y fin en índices
+                int startIndex = getHourIndex(startTime);
+                
+                // Recuperar el estado actual de la sala
+                int[] status = reservationStatus.get(hall.getName());
+                
+                // Actualizar el estado dentro del rango de horas reservadas
+                for (int i = 0; i < 12; i++) { 
+                    if (i == startIndex - 9) {
+                        status[i] = 1; // Marca como reservado
+                    }
+                }
+            }
+
+            // Imprime el estado actualizado para verificar
+            printStatus(reservationStatus);
+
         });
         
         /*****
@@ -202,6 +272,29 @@ public class ReservationJFrame extends javax.swing.JFrame {
         // Actualizar el diseño
         jPanel1.revalidate();
         jPanel1.repaint();
+    }
+    
+    private int getHourIndex(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.get(Calendar.HOUR_OF_DAY); // Devuelve la hora como índice
+    }
+    
+    // Función para reiniciar el estado de todas las reservas a "no reservado"
+    public static void resetStatus(Map<String, int[]> reservaEstado) {
+        for (Map.Entry<String, int[]> entry : reservaEstado.entrySet()) {
+            int[] schedules = entry.getValue();
+            for (int i = 0; i < schedules.length; i++) {
+                schedules[i] = 0; // Reiniciar cada valor del array a 0
+            }
+        }
+    }
+
+    // Función auxiliar para imprimir el estado de las reservas
+    public static void printStatus(Map<String, int[]> reservaEstado) {
+        for (Map.Entry<String, int[]> entry : reservaEstado.entrySet()) {
+            System.out.println("Sala: " + entry.getKey() + ", Estado: " + java.util.Arrays.toString(entry.getValue()));
+        }
     }
     
     private void renderGrid(Integer columns, List<Hall> halls, JPanel gridPanel) {
