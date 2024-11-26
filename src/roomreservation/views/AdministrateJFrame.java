@@ -94,6 +94,9 @@ public class AdministrateJFrame extends javax.swing.JFrame {
         
         List<Reservation> reservations = reservationController.getAllReservationsByUser(userID);
         
+        // Obtener la fecha actual
+        java.util.Date currentDate = new java.util.Date();
+        
         for (Reservation reservation : reservations) {
             // Obtener detalles del auditorio
             Hall hall = hallController.getHallById(reservation.getHallId());
@@ -102,24 +105,27 @@ public class AdministrateJFrame extends javax.swing.JFrame {
             java.util.Date startDate = reservation.getStartDate();
             java.util.Date endDate = reservation.getEndDate();
 
-            java.text.SimpleDateFormat dateFormatter = new java.text.SimpleDateFormat("yyyy-MM-dd");
-            java.text.SimpleDateFormat timeFormatter = new java.text.SimpleDateFormat("HH:mm");
+            // Verificar si la fecha de inicio es posterior a la fecha actual
+            if (startDate.after(currentDate)) {
+                java.text.SimpleDateFormat dateFormatter = new java.text.SimpleDateFormat("yyyy-MM-dd");
+                java.text.SimpleDateFormat timeFormatter = new java.text.SimpleDateFormat("HH:mm");
 
-            String day = dateFormatter.format(startDate);
-            String startTime = timeFormatter.format(startDate);
-            String endTime = timeFormatter.format(endDate);
+                String day = dateFormatter.format(startDate);
+                String startTime = timeFormatter.format(startDate);
+                String endTime = timeFormatter.format(endDate);
 
-            // Agregar fila al modelo de la tabla
-            Object[] row = {
-                userName,
-                hall.getName(),
-                hall.getMaxCapacity(),
-                day,
-                startTime,
-                endTime,
-                "<html><p style='color: red'>Elimina</p></html>"
-            };
-            tableModel.addRow(row);
+                // Agregar fila al modelo de la tabla
+                Object[] row = {
+                    userName,
+                    hall.getName(),
+                    hall.getMaxCapacity(),
+                    day,
+                    startTime,
+                    endTime,
+                    "<html><p style='color: red'>Elimina</p></html>"
+                };
+                tableModel.addRow(row);
+            }
         }
         
         // Listener para manejar clics en la columna "Eliminar"
