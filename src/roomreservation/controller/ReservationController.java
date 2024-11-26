@@ -80,6 +80,32 @@ public class ReservationController {
         return reservations;
     }
 
+    // Obtener todas las reservas de un día específico
+    public List<Reservation> getAllReservationsByDay(java.util.Date day) {
+        List<Reservation> reservations = new ArrayList<>();
+        String query = "SELECT * FROM Reserva WHERE DATE(fecha_inicio) = ?"; // Filtrar por la fecha de inicio
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setDate(1, new java.sql.Date(day.getTime())); // Establecer la fecha como parámetro
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                reservations.add(new Reservation(
+                        rs.getInt("reserva_id"),
+                        rs.getInt("usuario_id"),
+                        rs.getInt("auditorio_id"),
+                        rs.getTimestamp("fecha_inicio"),
+                        rs.getTimestamp("fecha_fin"),
+                        rs.getTimestamp("fecha_creacion")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return reservations;
+    }
+    
     // Actualizar reserva
     public boolean updateReservation(Reservation reservation) {
         String query = "UPDATE Reserva SET usuario_id = ?, auditorio_id = ?, " +
