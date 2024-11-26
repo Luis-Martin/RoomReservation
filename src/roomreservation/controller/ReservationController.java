@@ -106,6 +106,32 @@ public class ReservationController {
         return reservations;
     }
     
+    // Obtener todas las reservas de un usuario específico
+    public List<Reservation> getAllReservationsByUser(int userId) {
+        List<Reservation> reservations = new ArrayList<>();
+        String query = "SELECT * FROM Reserva WHERE usuario_id = ?";
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, userId); // Establecer el ID del usuario como parámetro
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                reservations.add(new Reservation(
+                        rs.getInt("reserva_id"),
+                        rs.getInt("usuario_id"),
+                        rs.getInt("auditorio_id"),
+                        rs.getTimestamp("fecha_inicio"),
+                        rs.getTimestamp("fecha_fin"),
+                        rs.getTimestamp("fecha_creacion")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return reservations;
+    }
+    
     // Actualizar reserva
     public boolean updateReservation(Reservation reservation) {
         String query = "UPDATE Reserva SET usuario_id = ?, auditorio_id = ?, " +
