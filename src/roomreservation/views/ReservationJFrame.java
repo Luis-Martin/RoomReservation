@@ -59,7 +59,7 @@ public class ReservationJFrame extends javax.swing.JFrame {
         // Inicializar el estado de reservas dinámicamente
         for (Hall hall : halls) {
             String hallName = hall.getName(); // Obtener el nombre de la sala
-            reservationStatus.put(hallName, new int[12]); // Inicializar con 12 valores de 0   
+            reservationStatus.put(hallName, new int[24]); // Inicializar con 24 valores de 0   
         }
         
         /*****
@@ -142,33 +142,7 @@ public class ReservationJFrame extends javax.swing.JFrame {
         gridPanel.setLayout(new GridLayout(rows, columns, 0, 0)); // 12 filas, 3 columnas
         
         // Añadir las celdas a la rejilla representando cada hora de 9 AM a 9 PM
-        // renderGrid(columns, halls,gridPanel);
-        for (int hour = 9; hour <= 20; hour++) {
-            for (int column = 0; column < columns; column++) {
-                JPanel cell = new JPanel();
-                cell.setPreferredSize(new Dimension(120, 42));
-                cell.setBorder(BorderFactory.createLineBorder(new Color(0x7E7878)));
-
-                // Usar un booleano para rastrear si la celda está seleccionada
-                final boolean[] isSelected = {false};
-                final int finalHour = hour;
-                final String hallName = halls.get(column).getName();
-
-                cell.addMouseListener(new java.awt.event.MouseAdapter() {
-                    @Override
-                    public void mouseClicked(java.awt.event.MouseEvent evt) {
-                        selectedHall = hallName;
-                        selectedHour = String.format("%02d:00", finalHour);
-
-                        // Alternar selección visual
-                        cell.setBackground(isSelected[0] ? new Color(214, 217, 223) : new Color(0x96BFA2));
-                        isSelected[0] = !isSelected[0];
-                    }
-                });
-
-                gridPanel.add(cell);
-            }
-        }
+        renderGrid(columns, halls,gridPanel, reservationStatus);
         
         // Añadir la rejilla al panel principal
         mainGridPanel.add(gridPanel, BorderLayout.CENTER);
@@ -208,8 +182,8 @@ public class ReservationJFrame extends javax.swing.JFrame {
                 int[] status = reservationStatus.get(hall.getName());
                 
                 // Actualizar el estado dentro del rango de horas reservadas
-                for (int i = 0; i < 12; i++) { 
-                    if (i == startIndex - 9) {
+                for (int i = 0; i < 24; i++) { 
+                    if (i == startIndex - 1) {
                         status[i] = 1; // Marca como reservado
                     }
                 }
@@ -217,7 +191,9 @@ public class ReservationJFrame extends javax.swing.JFrame {
 
             // Imprime el estado actualizado para verificar
             printStatus(reservationStatus);
-
+            
+            // Rejilla
+            renderGrid( columns, halls, gridPanel, reservationStatus);
         });
         
         /*****
@@ -274,6 +250,7 @@ public class ReservationJFrame extends javax.swing.JFrame {
         jPanel1.repaint();
     }
     
+    // Función para objeter la hora de una Fecha
     private int getHourIndex(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
@@ -291,43 +268,58 @@ public class ReservationJFrame extends javax.swing.JFrame {
     }
 
     // Función auxiliar para imprimir el estado de las reservas
-    public static void printStatus(Map<String, int[]> reservaEstado) {
-        for (Map.Entry<String, int[]> entry : reservaEstado.entrySet()) {
+    public static void printStatus(Map<String, int[]> reservationStatus) {
+        for (Map.Entry<String, int[]> entry : reservationStatus.entrySet()) {
             System.out.println("Sala: " + entry.getKey() + ", Estado: " + java.util.Arrays.toString(entry.getValue()));
         }
     }
     
-    private void renderGrid(Integer columns, List<Hall> halls, JPanel gridPanel) {
+    // Función para crear la rejilla
+    private void renderGrid(Integer columns, List<Hall> halls, JPanel gridPanel, Map<String, int[]> reservationStatus) {
         // Limpiar el contenido actual del mainGridPanel
         gridPanel.removeAll();
         
         // Añadir las celdas a la rejilla representando cada hora de 9 AM a 9 PM
         for (int hour = 9; hour <= 20; hour++) {
-            for (int column = 0; column < columns; column++) {
+            for (Hall hall : halls) {
                 JPanel cell = new JPanel();
                 cell.setPreferredSize(new Dimension(120, 42));
                 cell.setBorder(BorderFactory.createLineBorder(new Color(0x7E7878)));
-
+                
+                // Crear y añadir el JLabel con el texto
+                JLabel label = new JLabel(hall.getName() + " -> " + hour);
+                cell.add(label, BorderLayout.CENTER);
+                
                 // Usar un booleano para rastrear si la celda está seleccionada
                 final boolean[] isSelected = {false};
                 final int finalHour = hour;
-                final String hallName = halls.get(column).getName();
+                final String hallName = hall.getName();
+                
+                // Verificar el estado de la reserva para esta sala y hora
+                int[] hallStatus = reservationStatus.get(hall.getName());
+                
+                if (hallStatus[hour - 1] == 1) {
+                    cell.setBackground(new Color(0x587260));
+                } else {
+                    cell.addMouseListener(new java.awt.event.MouseAdapter() {
+                        @Override
+                        public void mouseClicked(java.awt.event.MouseEvent evt) {
+                            selectedHall = hallName;
+                            selectedHour = String.format("%02d:00", finalHour);
 
-                cell.addMouseListener(new java.awt.event.MouseAdapter() {
-                    @Override
-                    public void mouseClicked(java.awt.event.MouseEvent evt) {
-                        selectedHall = hallName;
-                        selectedHour = String.format("%02d:00", finalHour);
-
-                        // Alternar selección visual
-                        cell.setBackground(isSelected[0] ? new Color(214, 217, 223) : new Color(0x96BFA2));
-                        isSelected[0] = !isSelected[0];
-                    }
-                });
-
+                            // Alternar selección visual
+                            cell.setBackground(isSelected[0] ? new Color(214, 217, 223) : new Color(0x96BFA2));
+                            isSelected[0] = !isSelected[0];
+                        }
+                    });
+                }
+                
                 gridPanel.add(cell);
             }
         }
+        
+        gridPanel.revalidate();
+        gridPanel.repaint();
     }
     
     @SuppressWarnings("unchecked")
