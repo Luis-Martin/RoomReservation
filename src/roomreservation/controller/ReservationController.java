@@ -61,7 +61,7 @@ public class ReservationController {
     // Leer todas las reservas
     public List<Reservation> getAllReservations() {
         List<Reservation> reservations = new ArrayList<>();
-        String query = "SELECT * FROM Reserva";
+        String query = "SELECT * FROM Reserva ORDER BY fecha_inicio ASC";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -83,7 +83,7 @@ public class ReservationController {
     // Obtener todas las reservas de un día específico
     public List<Reservation> getAllReservationsByDay(java.util.Date day) {
         List<Reservation> reservations = new ArrayList<>();
-        String query = "SELECT * FROM Reserva WHERE DATE(fecha_inicio) = ?"; // Filtrar por la fecha de inicio
+        String query = "SELECT * FROM Reserva WHERE DATE(fecha_inicio) = ? ORDER BY fecha_inicio ASC"; // Filtrar por la fecha de inicio
 
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setDate(1, new java.sql.Date(day.getTime())); // Establecer la fecha como parámetro
@@ -109,7 +109,7 @@ public class ReservationController {
     // Obtener todas las reservas de un usuario específico
     public List<Reservation> getAllReservationsByUser(int userId) {
         List<Reservation> reservations = new ArrayList<>();
-        String query = "SELECT * FROM Reserva WHERE usuario_id = ?";
+        String query = "SELECT * FROM Reserva WHERE usuario_id = ? ORDER BY fecha_inicio ASC";
 
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, userId); // Establecer el ID del usuario como parámetro
