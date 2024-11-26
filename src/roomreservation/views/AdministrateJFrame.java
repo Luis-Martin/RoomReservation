@@ -5,12 +5,15 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import roomreservation.components.MenuBar;
 import javax.swing.table.DefaultTableModel;
 import roomreservation.RoomReservation;
@@ -48,12 +51,39 @@ public class AdministrateJFrame extends javax.swing.JFrame {
         panel.add(titleLabel, constraints);
 
         // Tabla
-        String[] columnNames = {"Usuario", "Sala", "Capacidad", "Fecha", "Hora Inicial", "Hora Final"};
-        tableModel = new DefaultTableModel(columnNames, 0);
+        String[] columnNames = {
+            "<html><b>Usuario<b></html>",
+            "<html><b>Sala<b></html>",
+            "<html><b>Capacidad<b></html>",
+            "<html><b>Fecha<b></html>",
+            "<html><b>Hora Inicial<b></html>",
+            "<html><b>Hora Final<b></html>",
+            "<html><b>Eliminar<b></html>"
+        };
+        tableModel = new DefaultTableModel(columnNames, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
         reservationsTable = new JTable(tableModel);
+        
+        // Centrar texto de las celdas
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        reservationsTable.setDefaultRenderer(Object.class, centerRenderer);
+
+        // Centrar texto de los encabezados
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
+        headerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        reservationsTable.getTableHeader().setDefaultRenderer(headerRenderer);
+        
         reservationsTable.setFont(new Font("Inter", Font.PLAIN, 14));
         reservationsTable.setRowHeight(30);
         reservationsTable.setBackground(new Color(214, 217, 223));
+        reservationsTable.setShowGrid(false);
+        reservationsTable.setShowVerticalLines(false);
+        reservationsTable.setShowHorizontalLines(true);
         
         // Agregar filas al modelo de la tabla
         ReservationController reservationController = new ReservationController();
@@ -80,9 +110,48 @@ public class AdministrateJFrame extends javax.swing.JFrame {
             String endTime = timeFormatter.format(endDate);
 
             // Agregar fila al modelo de la tabla
-            Object[] row = {userName, hall.getName(), hall.getMaxCapacity(), day, startTime, endTime};
+            Object[] row = {
+                userName,
+                hall.getName(),
+                hall.getMaxCapacity(),
+                day,
+                startTime,
+                endTime,
+                "<html><p style='color: red'>Elimina</p></html>"
+            };
             tableModel.addRow(row);
         }
+        
+        // Listener para manejar clics en la columna "Eliminar"
+        reservationsTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int column = reservationsTable.columnAtPoint(e.getPoint());
+                int row = reservationsTable.rowAtPoint(e.getPoint());
+
+                if (column == 6) { // Si se hace clic en la columna "Eliminar"
+                    int confirm = javax.swing.JOptionPane.showConfirmDialog(
+                            null,
+                            "¿Estás seguro de que deseas eliminar esta reserva?",
+                            "Confirmar eliminación",
+                            javax.swing.JOptionPane.YES_NO_OPTION
+                    );
+                    if (confirm == javax.swing.JOptionPane.YES_OPTION) {
+                        // Obtener el ID de la reserva para eliminarla
+                        Reservation reservation = reservations.get(row);
+                        int reservationId = reservation.getReservationId();
+                        boolean success = reservationController.deleteReservation(reservationId);
+
+                        if (success) {
+                            javax.swing.JOptionPane.showMessageDialog(null, "Reserva eliminada con éxito.");
+                            tableModel.removeRow(row); // Eliminar la fila de la tabla
+                        } else {
+                            javax.swing.JOptionPane.showMessageDialog(null, "Error al eliminar la reserva.");
+                        }
+                    }
+                }
+            }
+        });
         
         // Obtener el ancho de la pantalla
         int screenWidth = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
@@ -95,7 +164,7 @@ public class AdministrateJFrame extends javax.swing.JFrame {
         constraints.gridx = 0;
         constraints.gridy = 1;
         constraints.fill = GridBagConstraints.BOTH;
-        constraints.insets = new Insets(40, sideMargin, 0, sideMargin); // Márgenes dinámicos
+        constraints.insets = new Insets(10, sideMargin, 30, sideMargin); // Márgenes dinámicos
         constraints.weightx = 1.0;
         constraints.weighty = 1.0;
         panel.add(scrollPanel, constraints);
