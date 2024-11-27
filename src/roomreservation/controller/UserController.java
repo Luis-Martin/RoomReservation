@@ -50,6 +50,7 @@ public class UserController {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 return new User(
+                    rs.getInt("usuario_id"),
                     rs.getString("nombre"),
                     rs.getString("email"),
                     rs.getString("telefono"),
@@ -71,6 +72,7 @@ public class UserController {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 return new User(
+                    rs.getInt("usuario_id"),
                     rs.getString("nombre"),
                     rs.getString("email"),
                     rs.getString("telefono"),

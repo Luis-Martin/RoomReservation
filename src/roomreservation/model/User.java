@@ -17,6 +17,16 @@ public class User {
     private String role;
 
     // Constructor
+    public User(int userId,String name, String email, String phone, String password, String role) {
+        this.userId = userId;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.password = password;
+        this.role = role;
+    }
+    
+    // Constructor
     public User(String name, String email, String phone, String password, String role) {
         this.name = name;
         this.email = email;
