@@ -12,6 +12,7 @@ import javax.swing.border.LineBorder;
 import roomreservation.views.AdministrateJFrame;
 import roomreservation.views.HistoryJFrame;
 import roomreservation.views.HomeJFrame;
+import roomreservation.views.LoginJFrame;
 import roomreservation.views.ProfileJFrame;
 import roomreservation.views.ReservationJFrame;
 import roomreservation.views.UserManagementJFrame;
@@ -87,7 +88,8 @@ public class MenuBar {
         });
         
          mniExit.addActionListener((ActionEvent e) -> {
-         System.exit(0);
+             new LoginJFrame().setVisible(true); // Abre el JFrame de Login
+             parentFrame.dispose(); // Cierra el JFrame actual
          });
     }
 
