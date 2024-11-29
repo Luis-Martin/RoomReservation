@@ -100,17 +100,32 @@ public class UserController {
     
     // Actualizar usuario
     public boolean updateUser(User user) {
-        String query = "UPDATE Usuario SET nombre = ?, email = ?, telefono = ?, contraseña = ?, rol = ? WHERE usuario_id = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            // Encriptar la contraseña antes de actualizarla
-            String hashedPassword = hashPassword(user.getPassword());
-            
-            stmt.setString(1, user.getName());
-            stmt.setString(2, user.getEmail());
-            stmt.setString(3, user.getPhone());
-            stmt.setString(4, hashedPassword); // Almacenar la nueva contraseña encriptada
-            stmt.setString(5, user.getRole());
-            stmt.setInt(6, user.getUserId());
+        StringBuilder query = new StringBuilder("UPDATE Usuario SET nombre = ?, email = ?, telefono = ?, rol = ?");
+
+        // Verificar si la contraseña no está vacía
+        if (user.getPassword() != null && !user.getPassword().isEmpty()) {
+            query.append(", contraseña = ?");
+        }
+        query.append(" WHERE usuario_id = ?");
+
+        try (PreparedStatement stmt = connection.prepareStatement(query.toString())) {
+            int index = 1;
+
+            // Establecer los parámetros comunes
+            stmt.setString(index++, user.getName());
+            stmt.setString(index++, user.getEmail());
+            stmt.setString(index++, user.getPhone());
+            stmt.setString(index++, user.getRole());
+
+            // Si la contraseña no está vacía, incluirla
+            if (user.getPassword() != null && !user.getPassword().isEmpty()) {
+                String hashedPassword = hashPassword(user.getPassword());
+                stmt.setString(index++, hashedPassword);
+            }
+
+            // Establecer el ID del usuario
+            stmt.setInt(index, user.getUserId());
+
             stmt.executeUpdate();
             return true;
         } catch (SQLException e) {
