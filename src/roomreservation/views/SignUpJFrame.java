@@ -21,6 +21,7 @@ import java.awt.event.FocusEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -229,6 +230,11 @@ public class SignUpJFrame extends javax.swing.JFrame {
 
             if (isCreated) {
                 System.out.println("Usuario registrado exitosamente");
+                
+                JOptionPane.showMessageDialog(null, "Usuario registrado con éxito!", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                roomreservation.RoomReservation.loggedInUser = newUser;
+                new HomeJFrame().setVisible(true); // Abre el JFrame Home
+                dispose(); // Cierra el JFrame actual
             } else {
                 System.out.println("Error al registrar el usuario");
             }
