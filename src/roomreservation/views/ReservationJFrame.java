@@ -144,7 +144,7 @@ public class ReservationJFrame extends javax.swing.JFrame {
         gridPanel.setLayout(new GridLayout(rows, columns, 0, 0)); // 12 filas, 3 columnas
         
         // Añadir las celdas a la rejilla representando cada hora de 9 AM a 9 PM
-        renderGrid(columns, halls,gridPanel, reservationStatus);
+        renderGrid(halls,gridPanel, reservationStatus);
         
         // Añadir la rejilla al panel principal
         mainGridPanel.add(gridPanel, BorderLayout.CENTER);
@@ -196,7 +196,7 @@ public class ReservationJFrame extends javax.swing.JFrame {
             printStatus(reservationStatus);
             
             // Rejilla
-            renderGrid( columns, halls, gridPanel, reservationStatus);
+            renderGrid(halls, gridPanel, reservationStatus);
         });
         
         /*****
@@ -282,7 +282,7 @@ public class ReservationJFrame extends javax.swing.JFrame {
     }
     
     // Función para crear la rejilla
-    private void renderGrid(Integer columns, List<Hall> halls, JPanel gridPanel, Map<String, int[]> reservationStatus) {
+    private void renderGrid(List<Hall> halls, JPanel gridPanel, Map<String, int[]> reservationStatus) {
         // Limpiar el contenido actual del mainGridPanel
         gridPanel.removeAll();
         
