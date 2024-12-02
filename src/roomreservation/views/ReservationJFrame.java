@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -26,7 +27,8 @@ import roomreservation.model.Reservation;
 public class ReservationJFrame extends javax.swing.JFrame {
     private JCalendar jCalendar; // Componente de calendario
     private JButton reservationButton; // Boton para realizar reserva
-    private Date selectedDate;   // Fecha seleccionada
+    private List<Reservation> selectedReservations = new ArrayList<>();
+    private Date selectedDate = new Date();   // Fecha seleccionada
     private String selectedHall; // Sala seleccionada
     private String selectedHour; // Hora seleccionada
     
@@ -100,7 +102,7 @@ public class ReservationJFrame extends javax.swing.JFrame {
         // Crear el encabezado para "Horario"
         JPanel horaryPanel = new JPanel();
         horaryPanel.setLayout(new BorderLayout());
-        JLabel horaryLabel = new JLabel("Horario   ", JLabel.CENTER);
+        JLabel horaryLabel = new JLabel("      Horario   ", JLabel.CENTER);
         horaryLabel.setFont(new Font("Arial", Font.PLAIN, 15));
         horaryPanel.add(horaryLabel, BorderLayout.CENTER);
         headerContainer.add(horaryPanel, BorderLayout.WEST);
@@ -129,7 +131,7 @@ public class ReservationJFrame extends javax.swing.JFrame {
 
         // Añadir las etiquetas de horas
         for (int hour = 9; hour <= 20; hour++) { // Formato 24 horas
-            JLabel hourLabel = new JLabel(String.format(" %02d:00     ", hour), JLabel.CENTER);
+            JLabel hourLabel = new JLabel(String.format(" %02d:00 - %02d:00     ", hour, hour + 1), JLabel.CENTER);
             hourLabel.setFont(new Font("Arial", Font.PLAIN, 15));
             hourPanel.add(hourLabel);
         }
@@ -167,7 +169,6 @@ public class ReservationJFrame extends javax.swing.JFrame {
             List<Reservation> reservationsByDay = reservationController.getAllReservationsByDay(selectedDate);
 
             System.out.println(reservationsByDay);
-            // Calendar calendar = Calendar.getInstance();
             
             // Actualizar el estado de las reservas
             for (Reservation reservation : reservationsByDay) {
@@ -176,7 +177,9 @@ public class ReservationJFrame extends javax.swing.JFrame {
                 Date startTime = reservation.getStartDate();
                 
                 // Convierte las horas de inicio y fin en índices
-                int startIndex = getHourIndex(startTime);
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(startTime);
+                int startIndex = calendar.get(Calendar.HOUR_OF_DAY);
                 
                 // Recuperar el estado actual de la sala
                 int[] status = reservationStatus.get(hall.getName());
@@ -218,18 +221,9 @@ public class ReservationJFrame extends javax.swing.JFrame {
                 );
                 return;
             }
-            // Combinar fecha y hora seleccionadas
-            java.util.Calendar calendar = java.util.Calendar.getInstance();
-            calendar.setTime(selectedDate);
-
-            // Extraer la hora seleccionada (en formato "HH:00") y ajustar en el calendario
-            int hour = Integer.parseInt(selectedHour.split(":")[0]); // Extrae la hora como entero
-            calendar.set(java.util.Calendar.HOUR_OF_DAY, hour);
-            calendar.set(java.util.Calendar.MINUTE, 0);
-            calendar.set(java.util.Calendar.SECOND, 0);
-
-            // Crear un objeto Date que contiene la fecha completa con hora
-            Date combinedDateTime = calendar.getTime();
+            
+            // Usar mmétodo para combinar fecha y hora
+            Date combinedDateTime = combineDateAndTime(selectedDate, selectedHour);
             
             System.out.println(combinedDateTime);
             // Abre el JFrame para Confirmar Reserva con la fecha combinada
@@ -250,11 +244,24 @@ public class ReservationJFrame extends javax.swing.JFrame {
         jPanel1.repaint();
     }
     
-    // Función para objeter la hora de una Fecha
-    private int getHourIndex(Date date) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        return calendar.get(Calendar.HOUR_OF_DAY); // Devuelve la hora como índice
+    // Método para combinar fecha y hora seleccionadas
+    private Date combineDateAndTime(Date selectedDate, String selectedHour) {
+        if (selectedDate == null || selectedHour == null) {
+            throw new IllegalArgumentException("La fecha y la hora no pueden ser nulas");
+        }
+
+        // Configurar el calendario con la fecha seleccionada
+        java.util.Calendar calendar = java.util.Calendar.getInstance();
+        calendar.setTime(selectedDate);
+
+        // Extraer la hora seleccionada (en formato "HH:00") y ajustar en el calendario
+        int hour = Integer.parseInt(selectedHour.split(":")[0]); // Extrae la hora como entero
+        calendar.set(java.util.Calendar.HOUR_OF_DAY, hour);
+        calendar.set(java.util.Calendar.MINUTE, 0);
+        calendar.set(java.util.Calendar.SECOND, 0);
+
+        // Devolver la fecha combinada
+        return calendar.getTime();
     }
     
     // Función para reiniciar el estado de todas las reservas a "no reservado"
@@ -298,6 +305,26 @@ public class ReservationJFrame extends javax.swing.JFrame {
                 // Verificar el estado de la reserva para esta sala y hora
                 int[] hallStatus = reservationStatus.get(hall.getName());
                 
+                // Fehca de creación
+                Date startDateTime = combineDateAndTime(selectedDate, "" + finalHour);
+
+                // Usar Calendar para agregar 1 hora, fecha final
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(startDateTime); // Configurar la fecha base
+                calendar.add(Calendar.HOUR_OF_DAY, 1); // Sumar 1 hora
+                Date endDateTime = calendar.getTime();
+
+                // Fecha de creación
+                Date creationDate = new Date();
+
+                Reservation reservation = new Reservation(
+                    roomreservation.RoomReservation.loggedInUser.getUserId(),
+                    hall.getHallId(),
+                    startDateTime,
+                    endDateTime,
+                    creationDate
+                );
+                
                 if (hallStatus[hour - 1] == 1) {
                     cell.setBackground(new Color(0x587260));
                 } else {
@@ -306,9 +333,20 @@ public class ReservationJFrame extends javax.swing.JFrame {
                         public void mouseClicked(java.awt.event.MouseEvent evt) {
                             selectedHall = hallName;
                             selectedHour = String.format("%02d:00", finalHour);
-
+                            
                             // Alternar selección visual
-                            cell.setBackground(isSelected[0] ? new Color(214, 217, 223) : new Color(0x96BFA2));
+                            if (isSelected[0]) {
+                                // Si ya estaba seleccionado, cambiar de color a "no seleccionado"
+                                cell.setBackground(new Color(214, 217, 223)); // Color por defecto
+                                selectedReservations.remove(reservation);
+                            } else {
+                                // Si no estaba seleccionado, cambiar de color a "seleccionado"
+                                cell.setBackground(new Color(0x96BFA2)); // Color de selección
+                                selectedReservations.add(reservation);
+                            }
+                            System.out.println(selectedReservations);
+                            
+                            // Alternar el estado de la selección
                             isSelected[0] = !isSelected[0];
                         }
                     });
