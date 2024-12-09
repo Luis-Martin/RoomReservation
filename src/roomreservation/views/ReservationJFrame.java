@@ -102,9 +102,10 @@ public class ReservationJFrame extends javax.swing.JFrame {
         // Crear el encabezado para "Horario"
         JPanel horaryPanel = new JPanel();
         horaryPanel.setLayout(new BorderLayout());
-        JLabel horaryLabel = new JLabel("      Horario   ", JLabel.CENTER);
+        JLabel horaryLabel = new JLabel("Horario", JLabel.CENTER);
         horaryLabel.setFont(new Font("Arial", Font.PLAIN, 15));
         horaryPanel.add(horaryLabel, BorderLayout.CENTER);
+        horaryPanel.setPreferredSize(new Dimension(140,0));
         headerContainer.add(horaryPanel, BorderLayout.WEST);
 
         // Crear un panel para los nombres de las salas
@@ -114,7 +115,10 @@ public class ReservationJFrame extends javax.swing.JFrame {
         // Añadir los nombres de las columnas
         for (int column = 0; column < columns; column++) {
             String hallName = halls.get(column).getName();  // Obtener el nombre de la sala
-            JLabel headerLabel = new JLabel(hallName, JLabel.CENTER);
+            Integer hallCapacity = halls.get(column).getMaxCapacity();  // Obtener la capacidad de la sala
+            JLabel headerLabel = new JLabel("<html><div style='width: 140px; text-align: center;'>"
+                    + hallName + "<br>Capacity: " + hallCapacity
+                    + "</div></html>");
             headerLabel.setFont(new Font("Arial", Font.PLAIN, 15));
             headerPanel.add(headerLabel);
         }
@@ -133,6 +137,7 @@ public class ReservationJFrame extends javax.swing.JFrame {
         for (int hour = 9; hour <= 20; hour++) { // Formato 24 horas
             JLabel hourLabel = new JLabel(String.format(" %02d:00 - %02d:00     ", hour, hour + 1), JLabel.CENTER);
             hourLabel.setFont(new Font("Arial", Font.PLAIN, 15));
+            hourLabel.setPreferredSize(new Dimension(140, 48));
             hourPanel.add(hourLabel);
         }
 
@@ -290,7 +295,7 @@ public class ReservationJFrame extends javax.swing.JFrame {
         for (int hour = 9; hour <= 20; hour++) {
             for (Hall hall : halls) {
                 JPanel cell = new JPanel();
-                cell.setPreferredSize(new Dimension(120, 42));
+                cell.setPreferredSize(new Dimension(140, 48));
                 cell.setBorder(BorderFactory.createLineBorder(new Color(0x7E7878)));
                 
                 // Crear y añadir el JLabel con el texto

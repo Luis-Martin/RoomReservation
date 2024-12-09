@@ -31,7 +31,7 @@ public class MenuBar {
 
     public MenuBar(JFrame parentFrame) {
         mbMenu = new JMenuBar();
-        mbMenu.setPreferredSize(new Dimension(0, 100));
+        mbMenu.setPreferredSize(new Dimension(0, 80));
         mbMenu.setOpaque(false);  // Para ajustar la opacidad
         mbMenu.setBackground(mColorFondo);   
         mbMenu.setBorder(new LineBorder(mColorFondo, 1));
