@@ -102,7 +102,7 @@ public HistoryJFrame() {
             java.util.Date endDate = reservation.getEndDate();
 
             // Verificar si la fecha de inicio es posterior a la fecha actual
-            if (startDate.before(currentDate)) {
+            if (startDate.before(currentDate) && reservation.getUserId() == RoomReservation.loggedInUser.getUserId()) {
                 java.text.SimpleDateFormat dateFormatter = new java.text.SimpleDateFormat("yyyy-MM-dd");
                 java.text.SimpleDateFormat timeFormatter = new java.text.SimpleDateFormat("HH:mm");
 
