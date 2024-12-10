@@ -192,4 +192,18 @@ public class ReservationController {
             return false;
         }
     }
+    
+    // Eliminar todas las reservas de una sala específica
+    public boolean deleteReservationsByHall(int hallId) {
+        String query = "DELETE FROM Reserva WHERE auditorio_id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, hallId); // Establece el ID de la sala
+            int rowsAffected = stmt.executeUpdate(); // Ejecuta la consulta y devuelve el número de filas afectadas
+            System.out.println("Reservas eliminadas: " + rowsAffected);
+            return true; // Retorna true si se ejecuta correctamente
+        } catch (SQLException e) {
+            e.printStackTrace(); // Imprime el error si ocurre una excepción SQL
+            return false; // Retorna false en caso de error
+        }
+    }
 }

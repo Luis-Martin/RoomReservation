@@ -12,6 +12,7 @@ import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -19,11 +20,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import roomreservation.RoomReservation;
 import roomreservation.components.MenuBar;
 import roomreservation.controller.HallController;
+import roomreservation.controller.ReservationController;
 import roomreservation.model.Hall;
-import roomreservation.model.Reservation;
 
 /**
  *
@@ -106,14 +106,16 @@ public class HallManagementJFrame extends javax.swing.JFrame {
                 };
                 tableModel.addRow(row);
         }
-
+        
         // Listener para manejar clics en la columna "Eliminar"
         hallssTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int column = hallssTable.columnAtPoint(e.getPoint());
                 int row = hallssTable.rowAtPoint(e.getPoint());
-
+                Hall hallToDelete = halls.get(row);
+                int hallId = hallToDelete.getHallId();
+                
                 if (column == 4) { // Si se hace clic en la columna "Eliminar"
                     int confirm = javax.swing.JOptionPane.showConfirmDialog(
                             null,
@@ -122,13 +124,10 @@ public class HallManagementJFrame extends javax.swing.JFrame {
                             javax.swing.JOptionPane.YES_NO_OPTION
                     );
                     if (confirm == javax.swing.JOptionPane.YES_OPTION) {
-                        // Obtener el ID de la sala desde el modelo de la tabla
-                        Hall hallToDelete = halls.get(row);
-                        int hallId = hallToDelete.getHallId();
-                        
                         // Llamar al método del controlador para eliminar la sala
                         HallController hallController = new HallController();
-                        boolean success = hallController.deleteHall(hallId);
+                        ReservationController reservationController = new ReservationController();
+                        boolean success = reservationController.deleteReservationsByHall(hallId) && hallController.deleteHall(hallId);
                         
                         if (success) {
                             javax.swing.JOptionPane.showMessageDialog(null, "Reserva eliminada con éxito.");
@@ -137,6 +136,8 @@ public class HallManagementJFrame extends javax.swing.JFrame {
                             javax.swing.JOptionPane.showMessageDialog(null, "Error al eliminar la reserva.");
                         }
                     }
+                } else if (column == 3) { // Si se hace clic en la columna "Editar"
+                    
                 }
             }
         });
@@ -156,6 +157,20 @@ public class HallManagementJFrame extends javax.swing.JFrame {
         constraints.weightx = 1.0;
         constraints.weighty = 1.0;
         panel.add(scrollPanel, constraints);
+        
+        // Botón para crear nueva sala
+        JButton createButton = new JButton("Crear Nueva Sala");
+        createButton.setFont(new Font("Inter", Font.PLAIN, 16));
+        createButton.setForeground(Color.WHITE); // Color de texto
+        createButton.addActionListener(e -> {
+            // Abrir un formulario o cuadro de diálogo para crear una nueva sala
+            javax.swing.JOptionPane.showMessageDialog(this, "Abrir formulario para crear una nueva sala");
+            // Aquí puedes implementar el formulario para la creación de salas
+        });
+        constraints.gridx = 0;
+        constraints.gridy = 2;
+        constraints.insets = new Insets(10, 0, 10, 0); // Márgenes
+        panel.add(createButton, constraints);
         
         // Configurar el panel principal en el JFrame
         setContentPane(panel); // Cambia el contenido del JFrame
