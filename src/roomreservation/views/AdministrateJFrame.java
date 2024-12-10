@@ -122,7 +122,7 @@ public class AdministrateJFrame extends javax.swing.JFrame {
                     day,
                     startTime,
                     endTime,
-                    "<html><p style='color: red'>Elimina</p></html>"
+                    "<html><p style='color: red'>Eliminar</p></html>"
                 };
                 tableModel.addRow(row);
             }
