@@ -15,7 +15,7 @@ import roomreservation.views.HomeJFrame;
 import roomreservation.views.LoginJFrame;
 import roomreservation.views.ProfileJFrame;
 import roomreservation.views.ReservationJFrame;
-import roomreservation.views.UserManagementJFrame;
+import roomreservation.views.HallManagementJFrame;
 
 public class MenuBar {
     private JMenuBar mbMenu;
@@ -25,7 +25,7 @@ public class MenuBar {
     private final JMenuItem mniHistory;
     private final JMenuItem mniAdministration;
     private final JMenuItem mniProfile;
-    private final JMenuItem mniUserManagement;
+    private final JMenuItem mniHallManagement;
     private final JMenuItem mniExit;
     private Color mColorFondo = new Color(18, 54, 41);
 
@@ -41,19 +41,20 @@ public class MenuBar {
         mniHome = createMenuItem("Inicio", new Font("Inter", Font.PLAIN, 18));
         mniReservation = createMenuItem("Reservar", new Font("Inter", Font.PLAIN, 18));
         mniHistory = createMenuItem("Historial", new Font("Inter", Font.PLAIN, 18));
-        mniAdministration = createMenuItem("Administrar", new Font("Inter", Font.PLAIN, 18));
+        mniAdministration = createMenuItem("Adm. Reservas", new Font("Inter", Font.PLAIN, 18));
         mniProfile = createMenuItem("Perfil", new Font("Inter", Font.PLAIN, 18));
-        mniUserManagement = createMenuItem("Gestionar Usuarios", new Font("Inter", Font.PLAIN, 18));
+        mniHallManagement = createMenuItem("Adm. Salas", new Font("Inter", Font.PLAIN, 18));
         mniExit = createMenuItem("Salir", new Font("Inter", Font.PLAIN, 18));
 
         // Agregar ítems al menú
         mbMenu.add(mniRoomc);
         mbMenu.add(mniHome);
+        mbMenu.add(mniProfile);
         mbMenu.add(mniReservation);
         mbMenu.add(mniHistory);
         mbMenu.add(mniAdministration);
-        mbMenu.add(mniProfile);
-        mbMenu.add(mniUserManagement);
+        mbMenu.add(mniHallManagement);
+
         mbMenu.add(mniExit);
         
         // agregar listeners
@@ -82,8 +83,8 @@ public class MenuBar {
             parentFrame.dispose(); // Cierra el JFrame actual
         });
         
-        mniUserManagement.addActionListener((var e) -> {
-            new UserManagementJFrame().setVisible(true); // Abre el JFrame UserManagement
+        mniHallManagement.addActionListener((var e) -> {
+            new HallManagementJFrame().setVisible(true); // Abre el JFrame UserManagement
             parentFrame.dispose(); // Cierra el JFrame actual
         });
         
