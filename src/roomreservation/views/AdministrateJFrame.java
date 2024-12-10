@@ -30,7 +30,7 @@ public class AdministrateJFrame extends javax.swing.JFrame {
         initComponents();
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setTitle("Administrar");
+        setTitle("Administrar Reservas");
 
         // Configurar el JMenuBar
         MenuBar menuBar = new MenuBar(this);
