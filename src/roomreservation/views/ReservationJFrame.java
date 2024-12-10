@@ -21,8 +21,10 @@ import javax.swing.JPanel;
 import roomreservation.components.MenuBar;
 import roomreservation.controller.HallController;
 import roomreservation.controller.ReservationController;
+import roomreservation.controller.UserController;
 import roomreservation.model.Hall;
 import roomreservation.model.Reservation;
+import roomreservation.model.User;
 
 public class ReservationJFrame extends javax.swing.JFrame {
     private JCalendar jCalendar; // Componente de calendario
@@ -299,8 +301,8 @@ public class ReservationJFrame extends javax.swing.JFrame {
                 cell.setBorder(BorderFactory.createLineBorder(new Color(0x7E7878)));
                 
                 // Crear y añadir el JLabel con el texto
-                JLabel label = new JLabel(hall.getName() + " -> " + hour);
-                cell.add(label, BorderLayout.CENTER);
+                // JLabel label = new JLabel(hall.getName() + " -> " + hour);
+                // cell.add(label, BorderLayout.CENTER);
                 
                 // Usar un booleano para rastrear si la celda está seleccionada
                 final boolean[] isSelected = {false};
@@ -331,6 +333,16 @@ public class ReservationJFrame extends javax.swing.JFrame {
                 );
                 
                 if (hallStatus[hour - 1] == 1) {
+                    ReservationController reservationController = new ReservationController();
+                    UserController userController = new UserController();
+                    System.out.println(hall);
+                    System.out.println(startDateTime);
+                    Reservation reservationMade = reservationController.getReservationByHallAndTime(hall.getHallId(), startDateTime);
+                    User userWithReservartion =  userController.getUserById(reservationMade.getUserId());
+                    System.out.println(userWithReservartion);
+                    
+                    JLabel labelName = new JLabel(userWithReservartion.getName());
+                    cell.add(labelName, BorderLayout.CENTER);
                     cell.setBackground(new Color(0x587260));
                 } else {
                     cell.addMouseListener(new java.awt.event.MouseAdapter() {

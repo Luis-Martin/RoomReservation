@@ -132,6 +132,35 @@ public class ReservationController {
         return reservations;
     }
     
+    // Obtener reserva por sala y fecha de inicio específica
+    public Reservation getReservationByHallAndTime(int hallId, java.util.Date specificTime) {
+        String query = "SELECT * FROM Reserva WHERE auditorio_id = ? "
+                + "AND DATE(fecha_inicio) = DATE(?) "
+                + "AND TIME(STR_TO_DATE(?, '%Y-%m-%d %H:%i:%s'))";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, hallId); // Establecer el ID de la sala
+            stmt.setTimestamp(2, new java.sql.Timestamp(specificTime.getTime())); // Establecer la fecha específica
+            stmt.setTimestamp(3, new java.sql.Timestamp(specificTime.getTime())); // Establecer la hora específica
+
+            ResultSet rs = stmt.executeQuery();
+            System.out.println(rs);
+            if (rs.next()) {
+                return new Reservation(
+                        rs.getInt("reserva_id"),
+                        rs.getInt("usuario_id"),
+                        rs.getInt("auditorio_id"),
+                        rs.getTimestamp("fecha_inicio"),
+                        rs.getTimestamp("fecha_fin"),
+                        rs.getTimestamp("fecha_creacion")
+                );
+            }
+        } catch (SQLException e) {
+            System.err.println("Error en la consulta SQL: " + e.getMessage());
+            e.printStackTrace(); // Manejo de errores
+        }
+        return null; // Devuelve null si no hay coincidencias
+    }
+    
     // Actualizar reserva
     public boolean updateReservation(Reservation reservation) {
         String query = "UPDATE Reserva SET usuario_id = ?, auditorio_id = ?, " +
