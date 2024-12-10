@@ -113,8 +113,8 @@ public class HallManagementJFrame extends javax.swing.JFrame {
             public void mouseClicked(MouseEvent e) {
                 int column = hallssTable.columnAtPoint(e.getPoint());
                 int row = hallssTable.rowAtPoint(e.getPoint());
-                Hall hallToDelete = halls.get(row);
-                int hallId = hallToDelete.getHallId();
+                Hall hallToChange = halls.get(row);
+                int hallId = hallToChange.getHallId();
                 
                 if (column == 4) { // Si se hace clic en la columna "Eliminar"
                     int confirm = javax.swing.JOptionPane.showConfirmDialog(
@@ -137,7 +137,8 @@ public class HallManagementJFrame extends javax.swing.JFrame {
                         }
                     }
                 } else if (column == 3) { // Si se hace clic en la columna "Editar"
-                    
+                    new AddHallJFrame(hallToChange).setVisible(true); // Abre el JFrame Home
+                    dispose(); // Cierra el JFrame actual
                 }
             }
         });
